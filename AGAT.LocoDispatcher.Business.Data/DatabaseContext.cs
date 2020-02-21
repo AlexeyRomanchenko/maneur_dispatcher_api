@@ -1,4 +1,5 @@
-﻿using AGAT.LocoDispatcher.Data.Models.Rails;
+﻿using AGAT.LocoDispatcher.Data.Models;
+using AGAT.LocoDispatcher.Data.Models.Rails;
 using AGAT.LocoDispatcher.Data.Models.Stations;
 using Microsoft.EntityFrameworkCore;
 using System;
