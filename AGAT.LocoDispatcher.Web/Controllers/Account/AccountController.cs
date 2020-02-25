@@ -11,16 +11,10 @@ namespace AGAT.LocoDispatcher.Web.Controllers.Account
         [SimpleActionFilter(38)]
         public IActionResult Index()
         {
-            UserViewModel viewModel = new UserViewModel 
-            {
-            Username = "Alex",
-            Password = "0404"
-            };
-            this.Login(viewModel);
-            return Ok(viewModel);
+            return Ok();
         }
         [HttpPost]
-        public IActionResult Login(UserViewModel user)
+        public IActionResult Login([FromBody]UserViewModel user)
         {
             if (user == null)
             {

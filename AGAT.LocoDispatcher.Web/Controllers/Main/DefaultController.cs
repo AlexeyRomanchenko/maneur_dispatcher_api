@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mime;
 using AGAT.LocoDispatcher.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AGAT.LocoDispatcher.Web.Controllers.Main
 {
+    [Produces(MediaTypeNames.Application.Json)]
+    [ApiController]
     [Route("api/[controller]")]
     public class DefaultController : ControllerBase
     {
@@ -24,7 +27,7 @@ namespace AGAT.LocoDispatcher.Web.Controllers.Main
 
         // POST: api/Default
         [HttpPost]
-        public IActionResult Post([FromBody]int value)
+        public IActionResult Post([FromBody]UserViewModel value)
         {
             if (ModelState.IsValid)
             {
@@ -32,7 +35,7 @@ namespace AGAT.LocoDispatcher.Web.Controllers.Main
             }
             else 
             {
-                return BadRequest();
+                return BadRequest("Model is not valid");
             }
         }
 
