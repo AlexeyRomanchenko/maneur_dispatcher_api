@@ -4,12 +4,20 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
+using System;
 
 namespace AGAT.LocoDispatcher.Web
 {
     public class Startup
     {
+        public IConfiguration _configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers(options => 
@@ -25,6 +33,8 @@ namespace AGAT.LocoDispatcher.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+            string ConnectionString = _configuration.GetConnectionString("ConnectionString");
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();

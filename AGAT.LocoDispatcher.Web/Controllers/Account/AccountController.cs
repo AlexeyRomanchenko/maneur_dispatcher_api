@@ -16,12 +16,13 @@ namespace AGAT.LocoDispatcher.Web.Controllers.Account
         [HttpPost]
         public IActionResult Login([FromBody]UserViewModel user)
         {
-            if (user == null)
+            if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            return Ok();
+            return Ok(user);
         }
+      
         [HttpPost]
         public bool Logout()
         {
