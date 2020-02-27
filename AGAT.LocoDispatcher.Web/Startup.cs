@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using System;
+using AGAT.LocoDispatcher.Business.Classes;
 
 namespace AGAT.LocoDispatcher.Web
 {
@@ -34,6 +35,7 @@ namespace AGAT.LocoDispatcher.Web
                 app.UseDeveloperExceptionPage();
             }
             string ConnectionString = _configuration.GetConnectionString("ConnectionString");
+            ConnectionFactory.SetConnectionString(ConnectionString);
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

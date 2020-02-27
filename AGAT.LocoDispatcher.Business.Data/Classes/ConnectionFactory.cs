@@ -4,16 +4,32 @@ using System.Text;
 
 namespace AGAT.LocoDispatcher.Data.Classes
 {
-    public class ConnectionFactory
+    public static class ConnectionFactory
     {
-        private string _connection;
-        public void SetConnectionString(string connection)
+        private static string _connection;
+        public static void SetConnectionString(string connection)
         {
-            _connection = connection;
+            if (!String.IsNullOrWhiteSpace(connection))
+            {
+                _connection = connection.Trim();
+                DatabaseContext context = new DatabaseContext();
+            }
+            else
+            {
+                throw new ArgumentNullException("Invalid connection string");
+            }
         }
-        public string GetConnectionString()
+        public static string GetConnectionString()
         {
-            return _connection;
+            if (!String.IsNullOrEmpty(_connection))
+            {
+                return _connection;
+            }
+            else
+            {
+                throw new FormatException($"connection string format is not valid connection string is {_connection}");
+            }
+
         }
     }
 }

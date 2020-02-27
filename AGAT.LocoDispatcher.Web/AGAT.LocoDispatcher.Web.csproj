@@ -13,4 +13,8 @@
     <None Include="wwwroot\index.html" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AGAT.LocoDispatcher.Business\AGAT.LocoDispatcher.Business.csproj" />
+  </ItemGroup>
+
 </Project>
