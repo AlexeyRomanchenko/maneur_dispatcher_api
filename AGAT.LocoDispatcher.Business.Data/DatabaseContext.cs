@@ -1,8 +1,7 @@
-﻿using AGAT.LocoDispatcher.Data.Models;
+﻿using AGAT.LocoDispatcher.Data.Classes;
 using AGAT.LocoDispatcher.Data.Models.Rails;
 using AGAT.LocoDispatcher.Data.Models.Stations;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace AGAT.LocoDispatcher.Data
 {
@@ -18,7 +17,8 @@ namespace AGAT.LocoDispatcher.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=locomotiveDB;Trusted_Connection=True;");
+            string connectionString = ConnectionFactory.GetConnectionString();
+            optionsBuilder.UseSqlServer(connectionString);
         }
     }
 }
