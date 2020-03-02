@@ -34,8 +34,8 @@ namespace AGAT.LocoDispatcher.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            string ConnectionString = _configuration.GetConnectionString("ConnectionString");
-            ConnectionFactory.SetConnectionString(ConnectionString);
+            string ConnectionString = _configuration.GetConnectionString("MyDatabase");
+            ConnectionFacade.SetConnectionString(ConnectionString);
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

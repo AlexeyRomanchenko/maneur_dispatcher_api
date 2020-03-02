@@ -5,13 +5,13 @@ using System.Text;
 
 namespace AGAT.LocoDispatcher.Business.Classes
 {
-    public static class ConnectionFactory
+    public static class ConnectionFacade
     {
         public static void SetConnectionString(string connection)
         {
             if (!String.IsNullOrWhiteSpace(connection))
             {
-                Data.Classes.ConnectionFactory.SetConnectionString(connection);
+                Data.Classes.ConnectionFacade.SetConnectionString(connection);
             }
             else
             {
@@ -20,7 +20,7 @@ namespace AGAT.LocoDispatcher.Business.Classes
         }
         public static string GetConnectionString()
         {
-            return Data.Classes.ConnectionFactory.GetConnectionString();
+            return Data.Classes.ConnectionFacade.GetConnectionString();
         }
     }
 }

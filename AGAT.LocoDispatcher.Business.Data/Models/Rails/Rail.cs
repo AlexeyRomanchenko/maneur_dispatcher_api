@@ -1,4 +1,5 @@
 ﻿using AGAT.LocoDispatcher.Data.Interfaces;
+using AGAT.LocoDispatcher.Data.Models.Stations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,9 @@ namespace AGAT.LocoDispatcher.Data.Models.Rails
     {
         [Key]
         public int Id { get; set; }
+        public string RailCode { get; set; }
         public IEnumerable<Coord> Coords { get; set; }
+        public int StationId { get; set; }
+        public Station Station { get; set; }
     }
 }
