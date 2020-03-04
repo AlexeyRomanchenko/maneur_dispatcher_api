@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AGAT.LocoDispatcher.Data.Classes
 {
-    public static class ConnectionFactory
+    public static class ConnectionFacade
     {
         private static string _connection;
         public static void SetConnectionString(string connection)

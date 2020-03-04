@@ -14,11 +14,17 @@ namespace AGAT.LocoDispatcher.Data
         {
             Database.EnsureCreated();
         }
+        public DatabaseContext(DbContextOptions<DatabaseContext> options)
+       : base(options)
+        { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = ConnectionFactory.GetConnectionString();
-            optionsBuilder.UseSqlServer(connectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+                string connectionString = ConnectionFacade.GetConnectionString();
+                optionsBuilder.UseSqlServer(connectionString);
+            }
         }
     }
 }

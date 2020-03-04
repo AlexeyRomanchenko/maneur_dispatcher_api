@@ -10,24 +10,24 @@ namespace AGAT.LocoDispatcher.Business.Tests
         public void SetConnectionStringOK()
         {
             string connection = "sdfsf";
-            ConnectionFactory.SetConnectionString(connection);
-            Assert.Equal(connection, ConnectionFactory.GetConnectionString());
+            ConnectionFacade.SetConnectionString(connection);
+            Assert.Equal(connection, ConnectionFacade.GetConnectionString());
         }
 
         [Fact]
         public void SetConnectionStringTrimmedOK()
         {
             string connection = " sdfsf   ";
-            ConnectionFactory.SetConnectionString(connection);
+            ConnectionFacade.SetConnectionString(connection);
             connection = connection.Trim();
-            Assert.Equal(connection, ConnectionFactory.GetConnectionString());
+            Assert.Equal(connection, ConnectionFacade.GetConnectionString());
         }
 
         [Fact]
         public void SetConnectionStringThrowsArgumentNullExceptionOK()
         {
             string connection = "    ";
-            Assert.Throws<ArgumentNullException>(() => ConnectionFactory.SetConnectionString(connection));
+            Assert.Throws<ArgumentNullException>(() => ConnectionFacade.SetConnectionString(connection));
         }
     }
 }

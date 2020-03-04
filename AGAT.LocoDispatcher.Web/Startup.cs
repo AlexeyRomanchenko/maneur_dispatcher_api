@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using System;
 using AGAT.LocoDispatcher.Business.Classes;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace AGAT.LocoDispatcher.Web
 {
@@ -21,6 +22,23 @@ namespace AGAT.LocoDispatcher.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => 
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = Auth.ISSUER,
+
+                        ValidateAudience = true,
+                        ValidAudience = Auth.CLIENT,
+                        ValidateLifetime = true,
+
+                        IssuerSigningKey = Auth.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true
+                    };
+                });
             services.AddControllers(options => 
             {
                 options.EnableEndpointRouting = true;
@@ -34,9 +52,10 @@ namespace AGAT.LocoDispatcher.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            string ConnectionString = _configuration.GetConnectionString("ConnectionString");
-            ConnectionFactory.SetConnectionString(ConnectionString);
-
+            string ConnectionString = _configuration.GetConnectionString("MyDatabase");
+            ConnectionFacade.SetConnectionString(ConnectionString);
+            
+            app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();

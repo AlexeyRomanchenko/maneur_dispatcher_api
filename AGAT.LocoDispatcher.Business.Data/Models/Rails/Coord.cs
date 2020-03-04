@@ -10,5 +10,7 @@ namespace AGAT.LocoDispatcher.Data.Models.Rails
         public int X { get; set; }
         public int Y { get; set; }
         public bool StartFlag { get; set; }
+        public int RailId { get; set; }
+        public Rail Rail { get; set; }
     }
 }
