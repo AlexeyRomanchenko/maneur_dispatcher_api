@@ -1,6 +1,5 @@
 using AGAT.LocoDispatcher.Data.Classes;
 using AGAT.LocoDispatcher.Data.Classes.Repository;
-using AGAT.LocoDispatcher.Data.Models;
 using AGAT.LocoDispatcher.Data.Models.Rails;
 using AGAT.LocoDispatcher.Data.Models.Stations;
 using Microsoft.EntityFrameworkCore;
@@ -194,10 +193,10 @@ namespace AGAT.LocoDispatcher.Data.Tests
             _railsRepository.Create(rail);
             using (DatabaseContext db = new DatabaseContext())
             {
-                db.Stations.Remove(station);
+                var stat = db.Stations.FirstOrDefault();
+                db.Stations.Remove(stat);
                 db.SaveChanges();
             }
         }
-
     }
 }
