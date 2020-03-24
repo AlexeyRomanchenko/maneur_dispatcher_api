@@ -1,4 +1,5 @@
 ﻿using AGAT.LocoDispatcher.Data.Classes;
+using AGAT.LocoDispatcher.Data.Models.Auth;
 using AGAT.LocoDispatcher.Data.Models.Rails;
 using AGAT.LocoDispatcher.Data.Models.Stations;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,8 @@ namespace AGAT.LocoDispatcher.Data
         public DbSet<Coord> Coords { get; set; }
         public DbSet<Rail> Rails { get; set; }
         public DbSet<Station> Stations { get; set; }
+        //public DbSet<User> Users { get; set; }
+        //public DbSet<Role> Roles { get; set; }
         public DatabaseContext()
         {
             Database.EnsureCreated();

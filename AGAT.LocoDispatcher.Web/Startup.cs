@@ -44,6 +44,7 @@ namespace AGAT.LocoDispatcher.Web
                 options.EnableEndpointRouting = true;
             });
             services.AddSingleton<TestDI, TestDI>();
+            services.AddSingleton<RailsManager>();
         }
 
        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
