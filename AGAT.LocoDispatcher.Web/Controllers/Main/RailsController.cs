@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using AGAT.LocoDispatcher.Business.Classes;
 using AGAT.LocoDispatcher.Business.Models.RailsModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AGAT.LocoDispatcher.Web.Controllers.Rails
+namespace AGAT.LocoDispatcher.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Produces(MediaTypeNames.Application.Json)]
     [ApiController]
+    [Route("api/[controller]")]
     public class RailsController : ControllerBase
     {
         RailsManager _railsManager;
@@ -22,34 +24,25 @@ namespace AGAT.LocoDispatcher.Web.Controllers.Rails
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Rails/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Rails
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
+            return new string[] { "rails", "value2" };
         }
 
         // PUT: api/Rails/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Rail rail)
+        public StatusCodeResult Put(int id, [FromBody] List<Rail> rails)
         {
-            
-            _railsManager.CreateRail(id,rail);
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            try
+            {
+                foreach (Rail rail in rails)
+                {
+                    _railsManager.CreateRail(id, rail);                    
+                }
+                return StatusCode(200);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }          
         }
     }
 }

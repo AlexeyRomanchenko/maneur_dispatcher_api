@@ -18,4 +18,8 @@
     <ProjectReference Include="..\AGAT.LocoDispatcher.Business\AGAT.LocoDispatcher.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Rail\" />
+  </ItemGroup>
+
 </Project>
