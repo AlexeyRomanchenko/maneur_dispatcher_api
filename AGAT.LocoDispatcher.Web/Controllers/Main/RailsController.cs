@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mime;
-using System.Threading.Tasks;
 using AGAT.LocoDispatcher.Business.Classes;
 using AGAT.LocoDispatcher.Business.Models.RailsModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AGAT.LocoDispatcher.Web.Controllers
@@ -22,9 +19,28 @@ namespace AGAT.LocoDispatcher.Web.Controllers
         }
         // GET: api/Rails
         [HttpGet]
-        public IEnumerable<string> Get()
+        public StatusCodeResult Get()
         {
-            return new string[] { "rails", "value2" };
+            return StatusCode(404);
+        }
+        [HttpGet("{id}")]
+        public IEnumerable<Rail> Get(int id)
+        {
+            if (id > 0)
+            {
+                try
+                {
+                    return _railsManager.GetRailsByStationId(id);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException("id is not valid");
+            }
         }
 
         // PUT: api/Rails/5

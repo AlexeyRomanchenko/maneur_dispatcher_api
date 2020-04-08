@@ -39,12 +39,13 @@ namespace AGAT.LocoDispatcher.Web
                         ValidateIssuerSigningKey = true
                     };
                 });
+            services.AddCors();
             services.AddControllers(options => 
             {
                 options.EnableEndpointRouting = true;
             });
             services.AddSingleton<TestDI, TestDI>();
-            services.AddSingleton<RailsManager>();
+            services.AddTransient<RailsManager>();
         }
 
        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,8 +55,9 @@ namespace AGAT.LocoDispatcher.Web
                 app.UseDeveloperExceptionPage();
             }
             string ConnectionString = _configuration.GetConnectionString("MyDatabase");
+            string basicConnectionString = _configuration.GetConnectionString("AsusDatabase");
             ConnectionFacade.SetConnectionString(ConnectionString);
-            
+            app.UseCors(e => e.AllowAnyOrigin());
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();

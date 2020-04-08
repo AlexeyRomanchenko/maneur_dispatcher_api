@@ -11,11 +11,22 @@ namespace AGAT.LocoDispatcher.Business.Tests
 {
     public class RailsTests
     {
+        string _connectionString = "Server=(localdb)\\mssqllocaldb;Database=locomotiveDB;Trusted_Connection=True;";
         [Fact]
         public void GetStationRailsOk()
         {
+            int stationId = 1;
             RailsManager railManager = new RailsManager();
-            var stationScheme = railManager.GetRailsScheme();
+            var stationScheme = railManager.GetRailsByStationId(stationId);
+            Assert.NotEmpty(stationScheme);
+        }
+        [Fact]
+        public void GetRailsByStationIdOk()
+        {
+            ConnectionFacade.SetConnectionString(_connectionString);
+            int stationId = 3;
+            RailsManager railManager = new RailsManager();
+            var stationScheme = railManager.GetRailsByStationId(stationId);
             Assert.NotEmpty(stationScheme);
         }
 
@@ -51,7 +62,7 @@ namespace AGAT.LocoDispatcher.Business.Tests
                 startY = 23,
                 Coords = coords1,
                 Status = 7,
-                Id = 3
+                id = 3
             };
 
             Data.Models.Rails.Rail railDbo = _mapper.Map<Data.Models.Rails.Rail>(rail);

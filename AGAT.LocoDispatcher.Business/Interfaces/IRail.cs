@@ -5,7 +5,7 @@ namespace AGAT.LocoDispatcher.Business.Interfaces
 {
     interface IRail
     {
-        int Id { get; set; }
+        int id { get; set; }
         int Status { get; set; }
         IEnumerable<Coords> Coords { get; set; }
 

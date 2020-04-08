@@ -9,7 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AGAT.LocoDispatcher.AsusData\AGAT.LocoDispatcher.AsusData.csproj" />
     <ProjectReference Include="..\AGAT.LocoDispatcher.Business.Data\AGAT.LocoDispatcher.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Classes\Routes\" />
   </ItemGroup>
 
 </Project>
