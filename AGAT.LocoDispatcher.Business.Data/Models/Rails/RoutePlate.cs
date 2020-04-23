@@ -1,15 +1,18 @@
-﻿using AGAT.LocoDispatcher.Data.Interfaces;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace AGAT.LocoDispatcher.Data.Models.Rails
 {
-    public class Coord: BaseCoord
+    public class RoutePlate : BaseCoord
     {
         [Key]
         public new int Id { get; set; }
-        public bool StartFlag { get; set; }
+        public string Name { get; set; }
         public int RailId { get; set; }
         public Rail Rail { get; set; }
-        public RoutePlate RoutePlate { get; set; }
+        public int Angle { get; set; }
     }
 }

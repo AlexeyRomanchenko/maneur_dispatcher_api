@@ -40,7 +40,8 @@ namespace AGAT.LocoDispatcher.Data.Classes.Repository
                 {
                     using (DatabaseContext db = new DatabaseContext())
                     {
-                        return db.Rails.Where(e => e.StationId == id).Include(e => e.Coords).ToList();
+                        var routes = db.Rails.Where(e => e.ParkId == id).Include(e => e.Coords).Include(e => e.Carriage).Include(e => e.RoutePlate).ToList();
+                        return routes;
                     }
                 }
                 catch (SqlException exception)

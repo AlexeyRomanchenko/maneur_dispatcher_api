@@ -1,13 +1,13 @@
 {
   "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
+    "windowsAuthentication": true,
+    "anonymousAuthentication": false,
     "iis": {
-      "applicationUrl": "http://localhost/AGAT.LocoDispatcher.Web",
+      "applicationUrl": "http://localhost:3000",
       "sslPort": 0
     },
     "iisExpress": {
-      "applicationUrl": "http://localhost:5300",
+      "applicationUrl": "http://localhost:3000",
       "sslPort": 0
     }
   },
@@ -17,8 +17,7 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "ancmHostingModel": "OutOfProcess"
+      }
     },
     "AGAT.LocoDispatcher.Web": {
       "commandName": "Project",
@@ -26,7 +25,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5000"
+      "applicationUrl": "http://localhost:3001"
     }
   }
 }

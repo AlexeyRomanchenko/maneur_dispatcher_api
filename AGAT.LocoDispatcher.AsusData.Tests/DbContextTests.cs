@@ -28,5 +28,25 @@ namespace AGAT.LocoDispatcher.AsusData.Tests
                 Assert.NotEmpty(parks);
             }
         }
+
+        [Theory]
+        [InlineData("14043")]
+        public void GetRailsByParkId(string code)
+        {
+            List<StationPark> parks = new List<StationPark>();
+            List<Route> routes = new List<Route>();
+            using (AsusDataContext context = new AsusDataContext())
+            {
+                parks = context.Parks.Where(e => e.StationCode == code).ToList();
+            }
+            foreach (var park in parks)
+            {
+                using (AsusDataContext context = new AsusDataContext())
+                {
+                    routes = context.Routes.Where(e => e.ParkId == park.Id).ToList();
+                }
+            }
+            Assert.NotEmpty(routes);
+        }
     }
 }

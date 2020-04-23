@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Mime;
 using AGAT.LocoDispatcher.Business.Classes;
 using AGAT.LocoDispatcher.Business.Models.RailsModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AGAT.LocoDispatcher.Web.Controllers
 {
-    [Produces(MediaTypeNames.Application.Json)]
     [ApiController]
     [Route("api/[controller]")]
     public class RailsController : ControllerBase
@@ -17,12 +15,7 @@ namespace AGAT.LocoDispatcher.Web.Controllers
         {
             _railsManager =railsManager;
         }
-        // GET: api/Rails
-        [HttpGet]
-        public StatusCodeResult Get()
-        {
-            return StatusCode(404);
-        }
+
         [HttpGet("{id}")]
         public IEnumerable<Rail> Get(int id)
         {
@@ -30,7 +23,8 @@ namespace AGAT.LocoDispatcher.Web.Controllers
             {
                 try
                 {
-                    return _railsManager.GetRailsByStationId(id);
+                    var rails = _railsManager.GetRailsByParkId(id);
+                    return rails;
                 }
                 catch (Exception ex)
                 {

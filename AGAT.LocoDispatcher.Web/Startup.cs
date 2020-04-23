@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using System;
 using AGAT.LocoDispatcher.Business.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using AGAT.LocoDispatcher.Business.Classes.Managers;
+using Microsoft.OpenApi.Models;
 
 namespace AGAT.LocoDispatcher.Web
 {
@@ -44,8 +46,12 @@ namespace AGAT.LocoDispatcher.Web
             {
                 options.EnableEndpointRouting = true;
             });
-            services.AddSingleton<TestDI, TestDI>();
+            services.AddSwaggerGen(e=> 
+            {
+                e.SwaggerDoc("v2", new OpenApiInfo {Title= "Back end documentation API", Version = "v2" });
+            });
             services.AddTransient<RailsManager>();
+            services.AddTransient<RoutesManager>();
         }
 
        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,29 +60,26 @@ namespace AGAT.LocoDispatcher.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            string ConnectionString = _configuration.GetConnectionString("MyDatabase");
+            
+            string ConnectionString = _configuration.GetConnectionString("MySqliteDatabase");
             string basicConnectionString = _configuration.GetConnectionString("AsusDatabase");
             ConnectionFacade.SetConnectionString(ConnectionString);
-            app.UseCors(e => e.AllowAnyOrigin());
+            app.UseSwagger();
+            app.UseSwaggerUI(e=> {
+                e.SwaggerEndpoint("/swagger/v2/swagger.json", "Back end documentation API");
+                e.RoutePrefix = "docs";
+            });           
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200"));
             app.UseAuthorization();
             app.UseEndpoints(route =>
             {
                 route.MapControllers();
             });
-            app.Map("/test", Test);
         }
 
-        private void Test(IApplicationBuilder app)
-        {
-            app.Run(async context =>
-            {
-                TestDI test = context.RequestServices.GetService<TestDI>();
-                await context.Response.WriteAsync(test.Make().ToString());
-            });
-        }
     }
 }

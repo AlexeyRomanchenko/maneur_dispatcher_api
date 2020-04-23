@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AGAT.LocoDispatcher.Data.Data;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,7 +13,8 @@ namespace AGAT.LocoDispatcher.Data.Classes
             if (!String.IsNullOrWhiteSpace(connection))
             {
                 _connection = connection.Trim();
-                DatabaseContext context = new DatabaseContext();
+                Init.InitData();
+               // DatabaseContext context = new DatabaseContext();
             }
             else
             {

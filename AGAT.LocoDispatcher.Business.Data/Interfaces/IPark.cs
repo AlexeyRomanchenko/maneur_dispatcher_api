@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AGAT.LocoDispatcher.Data.Interfaces.Auth
+namespace AGAT.LocoDispatcher.Data.Interfaces
 {
-    interface IRole
+    interface IPark
     {
         int Id { get; set; }
-        string Name { get; set; }
+        string Code { get; set; }
     }
 }
