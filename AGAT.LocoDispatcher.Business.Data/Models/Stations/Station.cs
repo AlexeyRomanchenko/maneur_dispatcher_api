@@ -10,6 +10,6 @@ namespace AGAT.LocoDispatcher.Data.Models.Stations
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<Rail> Rails { get; set; }
+        public IEnumerable<Park> Parks { get; set; }
     }
 }

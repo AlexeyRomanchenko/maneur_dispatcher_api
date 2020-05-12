@@ -69,34 +69,18 @@ namespace AGAT.LocoDispatcher.Data.Tests
         [Fact]
         public void AddRailsOk()
         {
+            ConnectionFacade.SetConnectionString(_connection);
             IEnumerable<Rail> rails;
-            var options = this.GetInMemoryConnection(nameof(AddRailsOk));
-            using (var db = new DatabaseContext(options))
-            {
-                List<Coord> coords = new List<Coord>()
+            List<Coord> coords = new List<Coord>()
                 {
-                    new Coord { StartFlag = false, X = 34, Y = 32 },
+                    new Coord { StartFlag = true, X = 34, Y = 32 },
                     new Coord { StartFlag = false, X = 35, Y = 32 },
-                    new Coord { StartFlag = false, X = 36, Y = 32 },
-                    new Coord { StartFlag = false, X = 37, Y = 32 },
-                    new Coord { StartFlag = false, X = 34, Y = 32 },
-                    new Coord { StartFlag = false, X = 35, Y = 32 },
-                    new Coord { StartFlag = false, X = 36, Y = 32 },
-                    new Coord { StartFlag = false, X = 37, Y = 32 },
-                    new Coord { StartFlag = false, X = 34, Y = 32 },
-                    new Coord { StartFlag = false, X = 35, Y = 32 },
-                    new Coord { StartFlag = false, X = 36, Y = 32 },
-                    new Coord { StartFlag = false, X = 37, Y = 32 },
-                    new Coord { StartFlag = false, X = 34, Y = 32 },
-                    new Coord { StartFlag = false, X = 35, Y = 32 },
-                    new Coord { StartFlag = false, X = 36, Y = 32 },
-                    new Coord { StartFlag = false, X = 37, Y = 32 },
                 };
-                db.Rails.Add(new Rail {Coords = coords  });
-                db.SaveChanges();
-            }
-
-            using (var db = new DatabaseContext(options))
+            var options = this.GetInMemoryConnection(nameof(AddRailsOk));
+            Rail rail = new Rail { StationId = 3, Coords = coords };         
+            _railsRepository.Create(rail);
+  
+            using (var db = new DatabaseContext())
             {
                  rails = db.Rails.Include(e => e.Coords).ToList();
             }

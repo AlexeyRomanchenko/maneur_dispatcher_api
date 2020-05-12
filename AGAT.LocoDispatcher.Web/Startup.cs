@@ -1,13 +1,12 @@
-using AGAT.LocoDispatcher.Web.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
-using System;
 using AGAT.LocoDispatcher.Business.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using AGAT.LocoDispatcher.Business.Classes.Managers;
+using Microsoft.Extensions.Logging;
 
 namespace AGAT.LocoDispatcher.Web
 {
@@ -39,41 +38,39 @@ namespace AGAT.LocoDispatcher.Web
                         ValidateIssuerSigningKey = true
                     };
                 });
+            services.AddCors();
             services.AddControllers(options => 
             {
                 options.EnableEndpointRouting = true;
             });
-            services.AddSingleton<TestDI, TestDI>();
+            services.AddSwaggerService();
+            services.AddTransient<RailsManager>();
+            services.AddTransient<RoutesManager>();
         }
 
-       public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+       public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            logger.LogInformation($"Started Configure with is Production mode:{env.IsProduction()}");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            string ConnectionString = _configuration.GetConnectionString("MyDatabase");
-            ConnectionFacade.SetConnectionString(ConnectionString);
             
+            string connectionString = "Data Source=testing.db";
+            string basicConnectionString = "Data Source=192.168.111.211;User ID=web;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            ConnectionFacade.SetConnectionString(connectionString);
+            app.UseSwaggerService();   
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200"));
             app.UseAuthorization();
             app.UseEndpoints(route =>
             {
                 route.MapControllers();
             });
-            app.Map("/test", Test);
         }
 
-        private void Test(IApplicationBuilder app)
-        {
-            app.Run(async context =>
-            {
-                TestDI test = context.RequestServices.GetService<TestDI>();
-                await context.Response.WriteAsync(test.Make().ToString());
-            });
-        }
     }
 }

@@ -13,7 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AGAT.LocoDispatcher.Busines
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AGAT.LocoDispatcher.Data.Tests", "AGAT.LocoDispatcher.Data.Tests\AGAT.LocoDispatcher.Data.Tests.csproj", "{8B135BD6-1F02-4881-BBD6-C801985F0CA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGAT.LocoDispatcher.Web.Tests", "AGAT.LocoDispatcher.Web.Tests\AGAT.LocoDispatcher.Web.Tests.csproj", "{19EE57CB-0965-4EA4-A7DF-93F6D26A0877}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AGAT.LocoDispatcher.Web.Tests", "AGAT.LocoDispatcher.Web.Tests\AGAT.LocoDispatcher.Web.Tests.csproj", "{19EE57CB-0965-4EA4-A7DF-93F6D26A0877}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AGAT.LocoDispatcher.AsusData", "AGAT.LocoDispatcher.AsusData\AGAT.LocoDispatcher.AsusData.csproj", "{C625E25F-E09D-472B-AEBF-A492BD3A21F9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AGAT.LocoDispatcher.AsusData.Tests", "AGAT.LocoDispatcher.AsusData.Tests\AGAT.LocoDispatcher.AsusData.Tests.csproj", "{7759ED07-91FD-4052-93FA-56BF6F968657}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGAT.LocoDispatcher.Auth.Server", "AGAT.LocoDispatcher.Auth.Server\AGAT.LocoDispatcher.Auth.Server.csproj", "{A1B3EEED-0CAA-4C21-B185-77F6111204C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +51,18 @@ Global
 		{19EE57CB-0965-4EA4-A7DF-93F6D26A0877}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19EE57CB-0965-4EA4-A7DF-93F6D26A0877}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19EE57CB-0965-4EA4-A7DF-93F6D26A0877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C625E25F-E09D-472B-AEBF-A492BD3A21F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C625E25F-E09D-472B-AEBF-A492BD3A21F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C625E25F-E09D-472B-AEBF-A492BD3A21F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C625E25F-E09D-472B-AEBF-A492BD3A21F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7759ED07-91FD-4052-93FA-56BF6F968657}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7759ED07-91FD-4052-93FA-56BF6F968657}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7759ED07-91FD-4052-93FA-56BF6F968657}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7759ED07-91FD-4052-93FA-56BF6F968657}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B3EEED-0CAA-4C21-B185-77F6111204C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B3EEED-0CAA-4C21-B185-77F6111204C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B3EEED-0CAA-4C21-B185-77F6111204C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B3EEED-0CAA-4C21-B185-77F6111204C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
 ﻿using AGAT.LocoDispatcher.Data.Models.Rails;
+using AGAT.LocoDispatcher.Data.Models.Stations;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,6 @@ namespace AGAT.LocoDispatcher.Data.Interfaces
     {
         int Id { get; set; }
         string Name { get; set; }
-        IEnumerable<Rail> Rails { get; set; }
+        IEnumerable<Park> Parks { get; set; }
     }
 }
