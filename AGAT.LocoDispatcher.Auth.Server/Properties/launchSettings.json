@@ -1,13 +1,9 @@
-{
+﻿{
   "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iis": {
-      "applicationUrl": "http://localhost:8181",
-      "sslPort": 0
-    },
+    "windowsAuthentication": false, 
+    "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:5066",
+      "applicationUrl": "http://localhost:62907",
       "sslPort": 0
     }
   },
@@ -19,14 +15,13 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "AGAT.LocoDispatcher.Web": {
-      "commandName": "IISExpress",
+    "AGAT.LocoDispatcher.Auth.Server": {
+      "commandName": "Project",
       "launchBrowser": true,
+      "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "nativeDebugging": false,
-      "applicationUrl": "http://localhost:3001"
+      }
     }
   }
 }

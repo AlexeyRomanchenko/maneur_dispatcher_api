@@ -1,15 +1,12 @@
-using AGAT.LocoDispatcher.Web.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
-using System;
 using AGAT.LocoDispatcher.Business.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using AGAT.LocoDispatcher.Business.Classes.Managers;
-using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Logging;
 
 namespace AGAT.LocoDispatcher.Web
 {
@@ -46,29 +43,23 @@ namespace AGAT.LocoDispatcher.Web
             {
                 options.EnableEndpointRouting = true;
             });
-            services.AddSwaggerGen(e=> 
-            {
-                e.SwaggerDoc("v2", new OpenApiInfo {Title= "Back end documentation API", Version = "v2" });
-            });
+            services.AddSwaggerService();
             services.AddTransient<RailsManager>();
             services.AddTransient<RoutesManager>();
         }
 
-       public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+       public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            logger.LogInformation($"Started Configure with is Production mode:{env.IsProduction()}");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             
-            string ConnectionString = _configuration.GetConnectionString("MySqliteDatabase");
-            string basicConnectionString = _configuration.GetConnectionString("AsusDatabase");
-            ConnectionFacade.SetConnectionString(ConnectionString);
-            app.UseSwagger();
-            app.UseSwaggerUI(e=> {
-                e.SwaggerEndpoint("/swagger/v2/swagger.json", "Back end documentation API");
-                e.RoutePrefix = "docs";
-            });           
+            string connectionString = "Data Source=testing.db";
+            string basicConnectionString = "Data Source=192.168.111.211;User ID=web;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            ConnectionFacade.SetConnectionString(connectionString);
+            app.UseSwaggerService();   
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();

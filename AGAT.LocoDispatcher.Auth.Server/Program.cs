@@ -1,7 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace AGAT.LocoDispatcher.Web
+namespace AGAT.LocoDispatcher.Auth.Server
 {
     public class Program
     {
@@ -14,7 +20,6 @@ namespace AGAT.LocoDispatcher.Web
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseIIS();
                     webBuilder.UseStartup<Startup>();
                 });
     }
