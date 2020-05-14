@@ -38,7 +38,14 @@ namespace AGAT.LocoDispatcher.Web
                         ValidateIssuerSigningKey = true
                     };
                 });
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .AllowAnyHeader());
+            });
             services.AddControllers(options => 
             {
                 options.EnableEndpointRouting = true;
@@ -55,17 +62,16 @@ namespace AGAT.LocoDispatcher.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            
-            string connectionString = "Data Source=testing.db";
-            string basicConnectionString = "Data Source=192.168.111.211;User ID=web;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            ConnectionFacade.SetConnectionString(connectionString);
+            ConnectionFacade.SetConnectionString(
+                _configuration.GetConnectionString("MySqliteDatabase"), 
+                _configuration.GetConnectionString("AsusDatabase"));
             app.UseSwaggerService();   
-            app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200"));
+            app.UseCors("CorsPolicy");
             app.UseAuthorization();
+            app.UseAuthentication();
             app.UseEndpoints(route =>
             {
                 route.MapControllers();
