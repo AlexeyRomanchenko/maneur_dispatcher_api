@@ -14,6 +14,11 @@ namespace AGAT.LocoDispatcher.Auth.Server
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<IISOptions>(iis =>
+            {
+                iis.AuthenticationDisplayName = "Windows";
+                iis.AutomaticAuthentication = false;
+            });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -32,5 +37,7 @@ namespace AGAT.LocoDispatcher.Auth.Server
                 });
             });
         }
+
+
     }
 }

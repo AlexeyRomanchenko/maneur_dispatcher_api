@@ -13,7 +13,7 @@ namespace AGAT.LocoDispatcher.AsusData
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=192.168.111.211;User ID=web;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;");
+            optionsBuilder.UseSqlServer(ConnectionFaccede.GetConnectionString());
         }
     }
 }
