@@ -1,9 +1,15 @@
-﻿using AGAT.LocoDispatcher.Business.Models.RailsModels;
+﻿using AGAT.LocoDispatcher.Business.Models.LocoModels;
+using AGAT.LocoDispatcher.Business.Models.RailsModels;
+using AGAT.LocoDispatcher.Data.Models.Rails;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Carriage = AGAT.LocoDispatcher.Business.Models.RailsModels.Carriage;
+using Point = AGAT.LocoDispatcher.Data.Models.Rails.Point;
+using Rail = AGAT.LocoDispatcher.Business.Models.RailsModels.Rail;
+using RoutePlate = AGAT.LocoDispatcher.Business.Models.RailsModels.RoutePlate;
 
 namespace AGAT.LocoDispatcher.Business.Config
 {
@@ -51,6 +57,12 @@ namespace AGAT.LocoDispatcher.Business.Config
                 .ForMember(e => e.Rails, e => e.MapFrom(e => e.Rails))
                 .ForMember(e => e.Code, e => e.MapFrom(e => e.Code));
 
+                cfg.CreateMap<Data.Models.Rails.Point, Business.Models.RailsModels.Point>()
+                .ForMember(e => e.Id, e => e.MapFrom(e => e.Id))
+                .ForMember(e => e.Code, e => e.MapFrom(e => e.Code))
+                .ForMember(e => e.Angle, e => e.MapFrom(e => e.Angle))
+                .ForMember(e => e.Coord, e => e.MapFrom( e=> GetCoord(e)));
+
                 //Mapping data from Business layer to DataLayer 
                 cfg.CreateMap<Rail, Data.Models.Rails.Rail>()
                 .ForMember(dto => dto.Id, e => e.Ignore())
@@ -86,6 +98,13 @@ namespace AGAT.LocoDispatcher.Business.Config
                 .ForMember(e => e.Rails, e => e.MapFrom(e => e.Rails))
                 .ForMember(e => e.Code, e => e.MapFrom(e => e.Code));
 
+                cfg.CreateMap<Business.Models.RailsModels.Point, Point>()
+                .ForMember(e => e.Id, e => e.Ignore())
+                .ForMember(e => e.Code, e => e.MapFrom(e => e.Code))
+                .ForMember(e => e.Angle, e => e.MapFrom(e => e.Angle))
+                .ForMember(e => e.X, e => e.MapFrom(e => e.Coord.X))
+                .ForMember(e => e.Y, e => e.MapFrom(e => e.Coord.Y));
+
             });
             _mapper = config.CreateMapper();
         }
@@ -93,6 +112,16 @@ namespace AGAT.LocoDispatcher.Business.Config
         public static IMapper GetMapperInstance()
         {
             return _mapper;
+        }
+
+        private static Coords GetCoord(Data.Models.Rails.Point point)
+        {
+            Coords coord = new Coords
+            { 
+                X = point.X,
+                Y = point.Y
+            };
+            return coord;
         }
             
     }
