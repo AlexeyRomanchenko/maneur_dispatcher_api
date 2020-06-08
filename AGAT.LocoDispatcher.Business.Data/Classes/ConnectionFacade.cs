@@ -25,6 +25,7 @@ namespace AGAT.LocoDispatcher.Data.Classes
         {
             if (!String.IsNullOrEmpty(_connection))
             {
+               
                 return _connection;
             }
             else

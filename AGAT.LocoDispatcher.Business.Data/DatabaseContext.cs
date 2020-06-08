@@ -14,6 +14,8 @@ namespace AGAT.LocoDispatcher.Data
         public DbSet<Park> Parks { get; set; }
         public DbSet<Carriage> Carriages { get; set; }
         public DbSet<RoutePlate> RoutePlates { get; set; }
+        public DbSet<Locomotive> Locomotives { get; set; }
+        public DbSet<Point> Points { get; set; }
         public DatabaseContext()
         {
             Database.EnsureCreated();
