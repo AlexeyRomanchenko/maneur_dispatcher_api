@@ -19,16 +19,24 @@ namespace AGAT.LocoDispatcher.Web.Controllers.Main
             _routesManager = routesManager;
         }
         [HttpGet("{id}")]
-        public IEnumerable<Route> Get(int id)
+        public IActionResult Get(int id)
         {
-            if (id > 0)
+            try
             {
-                return _routesManager.GetRoutesByParkId(id);
+                if (id > 0)
+                {
+                    IEnumerable<Route> routes = _routesManager.GetRoutesByParkId(id);
+                    return Ok(routes);
+                }
+                else
+                {
+                    throw new ArgumentNullException("Нераспознан код");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                throw new ArgumentNullException("Sorry, code is undefined");
-            }
+                return BadRequest(ex.Message);
+            }   
         }
     }
 }

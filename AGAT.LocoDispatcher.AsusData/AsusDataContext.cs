@@ -6,6 +6,7 @@ namespace AGAT.LocoDispatcher.AsusData
     public class AsusDataContext: DbContext
     {
         public DbSet<Route> Routes { get; set; }
+        public DbSet<CarriageInfo> CarriageInfos { get; set; }
         public DbSet<StationPark> Parks { get; set; }
         public AsusDataContext()
         {
