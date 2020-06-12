@@ -63,6 +63,16 @@ namespace AGAT.LocoDispatcher.Business.Config
                 .ForMember(e => e.Angle, e => e.MapFrom(e => e.Angle))
                 .ForMember(e => e.Coord, e => e.MapFrom( e=> GetCoord(e)));
 
+                cfg.CreateMap<AsusData.Models.CarriageInfo, Business.Models.RouteModels.CarriageInfo>()
+                .ForMember(e => e.Id, e => e.MapFrom(e => e.Id))
+                .ForMember(e => e.RouteId, e => e.MapFrom(e => e.RouteId))
+                .ForMember(e => e.OwnerCode, e => e.MapFrom(e => e.OwnerCode))
+                .ForMember(e => e.LoadWeight, e => e.MapFrom(e => e.LoadWeight))
+                .ForMember(e => e.Order, e => e.MapFrom(e => e.Order))
+                .ForMember(e => e.DestinationCode, e => e.MapFrom(e => e.DestinationCode))
+                .ForMember(e => e.Description, e => e.MapFrom(e => e.Description));
+
+
                 //Mapping data from Business layer to DataLayer 
                 cfg.CreateMap<Rail, Data.Models.Rails.Rail>()
                 .ForMember(dto => dto.Id, e => e.Ignore())

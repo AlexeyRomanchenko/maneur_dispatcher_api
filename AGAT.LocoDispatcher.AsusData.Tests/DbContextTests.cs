@@ -8,6 +8,10 @@ namespace AGAT.LocoDispatcher.AsusData.Tests
 {
     public class DbContextTests
     {
+        public DbContextTests()
+        {
+            ConnectionFaccede.SetConnectionString("Data Source=192.168.111.211;Initial Catalog=asus;User ID=web;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        }
         [Fact]
         public void DatabaseConnectedOk()
         {
@@ -47,6 +51,17 @@ namespace AGAT.LocoDispatcher.AsusData.Tests
                 }
             }
             Assert.NotEmpty(routes);
+        }
+        [Theory]
+        [InlineData(3257)]
+        public void GetCarriageInfoByRoutIdOk(int routeId)
+        {
+            List<CarriageInfo> info = new List<CarriageInfo>();
+            using (AsusDataContext context = new AsusDataContext())
+            {
+                info = context.CarriageInfos.Where(e => e.RouteId == routeId).ToList();
+            }
+            Assert.NotEmpty(info);
         }
     }
 }
