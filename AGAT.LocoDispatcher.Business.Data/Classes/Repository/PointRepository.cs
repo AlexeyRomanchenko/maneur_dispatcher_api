@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AGAT.LocoDispatcher.Data.Classes.Repository
 {
@@ -40,6 +41,28 @@ namespace AGAT.LocoDispatcher.Data.Classes.Repository
                 else
                 {
                     throw new ArgumentNullException("Идентификатор парка невалиден");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Point> GetByCode(string code) 
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(code.Trim()))
+                {
+                    using (DatabaseContext context = new DatabaseContext())
+                    {
+                        return await context.Points.Where(e => e.Code == code).SingleOrDefaultAsync();
+                    }
+                }
+                else
+                {
+                    throw new ArgumentNullException("point is nor valid");
                 }
             }
             catch (Exception ex)

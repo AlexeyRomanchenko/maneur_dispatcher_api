@@ -5,6 +5,7 @@ using AGAT.LocoDispatcher.Data.Models.Rails;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Point = AGAT.LocoDispatcher.Business.Models.RailsModels.Point;
 
 namespace AGAT.LocoDispatcher.Business.Classes.Managers
@@ -43,6 +44,20 @@ namespace AGAT.LocoDispatcher.Business.Classes.Managers
                 throw ex;
             }
 
+        }
+
+        public async Task<Point> GetPointByCode(string code)
+        {
+            try
+            {
+                Data.Models.Rails.Point _point  = await _repository.GetByCode(code);
+                Point point = Mapper.GetMapperInstance().Map<Point>(_point);
+                return point;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
