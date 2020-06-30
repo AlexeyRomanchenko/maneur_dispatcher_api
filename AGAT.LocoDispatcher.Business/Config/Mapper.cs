@@ -1,11 +1,6 @@
-﻿using AGAT.LocoDispatcher.Business.Models.LocoModels;
-using AGAT.LocoDispatcher.Business.Models.RailsModels;
-using AGAT.LocoDispatcher.Data.Models.Rails;
+﻿using AGAT.LocoDispatcher.Business.Models.RailsModels;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Carriage = AGAT.LocoDispatcher.Business.Models.RailsModels.Carriage;
 using Point = AGAT.LocoDispatcher.Data.Models.Rails.Point;
 using Rail = AGAT.LocoDispatcher.Business.Models.RailsModels.Rail;

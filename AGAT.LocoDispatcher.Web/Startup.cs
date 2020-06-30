@@ -38,13 +38,18 @@ namespace AGAT.LocoDispatcher.Web
                         ValidateIssuerSigningKey = true
                     };
                 });
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.WithOrigins("http://localhost:4200")
+                    builder => builder.AllowAnyOrigin() //WithOrigins("http://localhost:4200")
                     .AllowAnyMethod()
-                    .AllowCredentials()
+                    //.AllowCredentials()
                     .AllowAnyHeader());
+            });
+            services.AddSignalR(options => 
+            {
+                options.EnableDetailedErrors = true;
             });
             services.AddControllers(options => 
             {
@@ -75,8 +80,9 @@ namespace AGAT.LocoDispatcher.Web
             app.UseAuthorization();
             app.UseAuthentication();
             app.UseEndpoints(route =>
-            {
+            {               
                 route.MapControllers();
+                route.MapHub<ConnectionHub>("/chat");
             });
         }
 
