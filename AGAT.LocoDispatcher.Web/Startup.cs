@@ -42,7 +42,7 @@ namespace AGAT.LocoDispatcher.Web
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin() //WithOrigins("http://localhost:4200")
+                    builder => builder.AllowAnyOrigin()//WithOrigins("http://localhost:4200", "http://localhost:3000")
                     .AllowAnyMethod()
                     //.AllowCredentials()
                     .AllowAnyHeader());
@@ -80,9 +80,10 @@ namespace AGAT.LocoDispatcher.Web
             app.UseAuthorization();
             app.UseAuthentication();
             app.UseEndpoints(route =>
-            {               
-                route.MapControllers();
+            {
                 route.MapHub<ConnectionHub>("/chat");
+                route.MapControllers();
+               
             });
         }
 

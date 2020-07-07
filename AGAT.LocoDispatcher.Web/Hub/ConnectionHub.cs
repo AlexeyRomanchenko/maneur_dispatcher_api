@@ -7,10 +7,11 @@ namespace AGAT.LocoDispatcher.Web
     {
         public override async Task OnConnectedAsync()
         {
+        
         }
-        public async Task Send(string message)
+        public async Task Send(string name, string message)
         {
-            await Clients.All.SendAsync("Send", message);
+            await Clients.All.SendAsync("broadcastMessage", name, message);
         }
     }
 }
