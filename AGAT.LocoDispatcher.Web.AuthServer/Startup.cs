@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AGAT.LocoDispatcher.Web.AuthServer.Scope;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace AGAT.LocoDispatcher.Web.Frontend.App
+namespace AGAT.LocoDispatcher.Web.AuthServer
 {
     public class Startup
     {
@@ -22,7 +23,10 @@ namespace AGAT.LocoDispatcher.Web.Frontend.App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddSignalR();
+            var builder = services.AddIdentityServer()
+               .AddInMemoryApiScopes(Config.ApiScopes)
+               .AddInMemoryClients(Config.Clients);
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,21 +38,20 @@ namespace AGAT.LocoDispatcher.Web.Frontend.App
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Home/Error");
             }
-
-            app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            //app.UseFileServer();
             app.UseRouting();
-            //app.UseCors("CorsPolicy");
-            //app.UseAuthorization();
+
+            app.UseAuthorization();
+            app.UseIdentityServer();
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            
         }
     }
 }
