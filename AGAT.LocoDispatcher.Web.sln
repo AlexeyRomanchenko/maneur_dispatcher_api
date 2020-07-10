@@ -19,9 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AGAT.LocoDispatcher.AsusDat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AGAT.LocoDispatcher.AsusData.Tests", "AGAT.LocoDispatcher.AsusData.Tests\AGAT.LocoDispatcher.AsusData.Tests.csproj", "{7759ED07-91FD-4052-93FA-56BF6F968657}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AGAT.LocoDispatcher.Web.Frontend.App", "AGAT.LocoDispatcher.Web.Frontend.App\AGAT.LocoDispatcher.Web.Frontend.App.csproj", "{AA008AEE-306B-42ED-9392-D81E98CBEFB8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGAT.LocoDispatcher.Web.AuthServer", "AGAT.LocoDispatcher.Web.AuthServer\AGAT.LocoDispatcher.Web.AuthServer.csproj", "{36797A0D-BE27-486C-A7BD-1EF696950775}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AGAT.LocoDispatcher.Web.AuthServer", "AGAT.LocoDispatcher.Web.AuthServer\AGAT.LocoDispatcher.Web.AuthServer.csproj", "{36797A0D-BE27-486C-A7BD-1EF696950775}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,10 +59,6 @@ Global
 		{7759ED07-91FD-4052-93FA-56BF6F968657}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7759ED07-91FD-4052-93FA-56BF6F968657}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7759ED07-91FD-4052-93FA-56BF6F968657}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA008AEE-306B-42ED-9392-D81E98CBEFB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA008AEE-306B-42ED-9392-D81E98CBEFB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA008AEE-306B-42ED-9392-D81E98CBEFB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA008AEE-306B-42ED-9392-D81E98CBEFB8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{36797A0D-BE27-486C-A7BD-1EF696950775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{36797A0D-BE27-486C-A7BD-1EF696950775}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36797A0D-BE27-486C-A7BD-1EF696950775}.Release|Any CPU.ActiveCfg = Release|Any CPU
