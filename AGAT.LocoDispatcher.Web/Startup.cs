@@ -29,7 +29,7 @@ namespace AGAT.LocoDispatcher.Web
                     .AllowCredentials()
                     .AllowAnyHeader());
             });
-            services.AddSignalR(options => 
+            services.AddSignalR(options =>
             {
                 options.EnableDetailedErrors = true;
             });
@@ -51,6 +51,7 @@ namespace AGAT.LocoDispatcher.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
             ConnectionFacade.SetConnectionString(
                 _configuration.GetConnectionString("MySqliteDatabase"), 
                 _configuration.GetConnectionString("AsusDatabase"));
@@ -65,7 +66,7 @@ namespace AGAT.LocoDispatcher.Web
             {
                 route.MapHub<ConnectionHub>("/chat");
                 route.MapControllers();
-               
+
             });
         }
 
