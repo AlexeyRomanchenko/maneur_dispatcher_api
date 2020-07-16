@@ -31,7 +31,7 @@ namespace AGAT.LocoDispatcher.Web
                     {
                         Id = 1,
                         Code = "346",
-                        Name = "ВЛ-10",
+                        Name = $"ВЛ-10/ {parkId}",
                         Status = true,
                         Speed = 15
                     },
@@ -39,7 +39,7 @@ namespace AGAT.LocoDispatcher.Web
                     {
                         Id = 1,
                         Code = "125",
-                        Name = "ВЛ-10",
+                        Name = $"ВЛ-10 / {parkId}",
                         Status = true,
                         Speed = 15
                     }
