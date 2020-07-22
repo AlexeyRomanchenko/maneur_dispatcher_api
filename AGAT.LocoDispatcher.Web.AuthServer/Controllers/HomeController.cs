@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AGAT.LocoDispatcher.Web.AuthServer.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AGAT.LocoDispatcher.Web.AuthServer.Controllers
 {
@@ -22,7 +23,7 @@ namespace AGAT.LocoDispatcher.Web.AuthServer.Controllers
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

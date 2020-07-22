@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace AGAT.LocoDispatcher.Web.AuthServer
 {
@@ -47,7 +48,7 @@ namespace AGAT.LocoDispatcher.Web.AuthServer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -61,7 +62,7 @@ namespace AGAT.LocoDispatcher.Web.AuthServer
 
             app.UseRouting();
             app.UseIdentityServer();
-            
+            SeedData.EnsureSeedData(serviceProvider);
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
