@@ -7,11 +7,13 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
 {
     public class Parser : ParserBase, IJob
     {
+        private string pathToFile = "D:\\messages.json";
         public async Task Execute(IJobExecutionContext context)
         {
-            await ParseToJson("wewe");
+            string json = await GetJSONFromFileAsync(pathToFile);
+            await ParseToJson(json);
         }
-        protected virtual async Task<string> GetJSONFromFileAsync(string pathToFile)
+        protected async Task<string> GetJSONFromFileAsync(string pathToFile)
         {
             try
             {
@@ -21,7 +23,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
                 }
                 using (StreamReader reader = new StreamReader(pathToFile))
                 {
-                    string json = reader.ReadToEnd();
+                    string json = await reader.ReadToEndAsync();
                     return await Task.FromResult(json);
                 }
             }

@@ -13,7 +13,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
                 throw new ArgumentNullException("json data is not valid, maybe it is null");
             }
 
-            Console.WriteLine("Parsing json");
+            Console.WriteLine($"Parsing json {jsonData.ToString()}");
         }
     }
 }
