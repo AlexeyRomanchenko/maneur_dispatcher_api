@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AGAT.LocoDispatcher.Web.JsonPasrer.Schedulers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -25,9 +26,9 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            EventScheduler.Start();
             app.UseRouting();
-
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/", async context =>

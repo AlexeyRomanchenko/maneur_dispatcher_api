@@ -1,7 +1,7 @@
 ﻿using AGAT.LocoDispatcher.Web.JsonPasrer.Interfaces;
+using AGAT.LocoDispatcher.Web.JsonPasrer.Utils;
 using Quartz;
 using Quartz.Impl;
-using System.Threading.Tasks;
 
 namespace AGAT.LocoDispatcher.Web.JsonPasrer.Schedulers
 {
@@ -11,6 +11,15 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Schedulers
         {
             IScheduler _scheduler = await StdSchedulerFactory.GetDefaultScheduler();
             await _scheduler.Start();
+
+            IJobDetail parserJob = JobBuilder.Create<Parser>().Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithSimpleSchedule(e => 
+                    e.WithIntervalInSeconds(5)
+                    .RepeatForever())
+                .Build();
+            await _scheduler.ScheduleJob(parserJob, trigger);
         }
     }
 }
