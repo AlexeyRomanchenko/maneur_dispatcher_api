@@ -15,11 +15,6 @@ namespace AGAT.LocoDispatcher.Web
         {
             _pointManager = new PointManager();
         }
-       
-        public override async Task OnConnectedAsync()
-        {
-            
-        }
         public async Task GetLocomotives(int parkId)
        {
             try

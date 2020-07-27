@@ -25,7 +25,16 @@ namespace AGAT.LocoDispatcher.Web.AuthServer
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("frontend", builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200");
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                    builder.AllowCredentials();
+                });
+            });
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -36,9 +45,19 @@ namespace AGAT.LocoDispatcher.Web.AuthServer
                 iis.AutomaticAuthentication = false;
             });
 
-            services.AddIdentityServer()
+            services.AddIdentityServer(options =>
+            {
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+            })
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
                .AddInMemoryApiScopes(Config.ApiScopes)
-               .AddInMemoryClients(Config.Clients);
+               .AddInMemoryClients(Config.Clients)
+               .AddDeveloperSigningCredential()
+               .AddAspNetIdentity<IdentityUser>();
+
             services.Configure<IISServerOptions>(iis =>
             {
                 iis.AuthenticationDisplayName = "Windows";
@@ -63,6 +82,8 @@ namespace AGAT.LocoDispatcher.Web.AuthServer
             app.UseRouting();
             app.UseIdentityServer();
             SeedData.EnsureSeedData(serviceProvider);
+            app.UseCors("frontend");
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

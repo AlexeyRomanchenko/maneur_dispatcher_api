@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AGAT.LocoDispatcher.Web.AuthServer.Models;
 using Microsoft.AspNetCore.Authorization;
+using AGAT.LocoDispatcher.Web.AuthServer.Attributes;
 
 namespace AGAT.LocoDispatcher.Web.AuthServer.Controllers
 {
+    [SecurityHeaders]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,7 +20,7 @@ namespace AGAT.LocoDispatcher.Web.AuthServer.Controllers
         {
             _logger = logger;
         }
-
+        [Authorize]
         public IActionResult Index()
         {
             return View();

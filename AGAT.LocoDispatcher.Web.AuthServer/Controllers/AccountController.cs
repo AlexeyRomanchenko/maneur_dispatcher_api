@@ -4,18 +4,22 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using AGAT.LocoDispatcher.Web.AuthServer.Attributes;
 using AGAT.LocoDispatcher.Web.AuthServer.Models;
 using IdentityModel;
+using IdentityServer4;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AGAT.LocoDispatcher.Web.AuthServer.Controllers
 {
+    [SecurityHeaders]
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -49,13 +53,7 @@ namespace AGAT.LocoDispatcher.Web.AuthServer.Controllers
         {
             // build a model so we know what to show on the login page
             var vm = await BuildLoginViewModelAsync(returnUrl);
-
-            if (vm.IsExternalLoginOnly)
-            {
-                // we only have one option for logging in and it's an external provider
-                return await ExternalLogin(vm.ExternalLoginScheme, returnUrl);
-            }
-
+            vm.AllowRememberLogin = false;
             return View(vm);
         }
 
@@ -64,32 +62,11 @@ namespace AGAT.LocoDispatcher.Web.AuthServer.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginInputModel model, string button)
+        public async Task<IActionResult> Login(LoginInputModel model)
         {
-            if (button != "login")
-            {
-                // the user clicked the "cancel" button
-                var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
-                if (context != null)
-                {
-                    // if the user cancels, send a result back into IdentityServer as if they 
-                    // denied the consent (even if this client does not require consent).
-                    // this will send back an access denied OIDC error response to the client.
-                   // await _interaction.GrantConsentAsync(context,ConsentResponse);
-
-                    // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
-                    return Redirect(model.ReturnUrl);
-                }
-                else
-                {
-                    // since we don't have a valid context, then we just go back to the home page
-                    return Redirect("~/");
-                }
-            }
-
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberLogin, lockoutOnFailure: true);
+                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByNameAsync(model.Username);
@@ -114,13 +91,13 @@ namespace AGAT.LocoDispatcher.Web.AuthServer.Controllers
             var vm = await BuildLoginViewModelAsync(model);
             return View(vm);
         }
-
         /// <summary>
         /// initiate roundtrip to external authentication provider
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> ExternalLogin(string provider, string returnUrl)
+        public async Task<IActionResult> ExternalLogin(string returnUrl)
         {
+            string provider = "Windows";
             if (AccountOptions.WindowsAuthenticationSchemeName == provider)
             {
                 // windows authentication needs special handling
@@ -171,8 +148,6 @@ namespace AGAT.LocoDispatcher.Web.AuthServer.Controllers
             var additionalLocalClaims = new List<Claim>();
             var localSignInProps = new AuthenticationProperties();
             ProcessLoginCallbackForOidc(result, additionalLocalClaims, localSignInProps);
-            ProcessLoginCallbackForWsFed(result, additionalLocalClaims, localSignInProps);
-            ProcessLoginCallbackForSaml2p(result, additionalLocalClaims, localSignInProps);
 
             // issue authentication cookie for user
             // we must issue the cookie maually, and can't use the SignInManager because
@@ -185,12 +160,15 @@ namespace AGAT.LocoDispatcher.Web.AuthServer.Controllers
             //}
 
             additionalLocalClaims.AddRange(principal.Claims);
-            var name = principal.FindFirst(JwtClaimTypes.Name)?.Value ?? user.Id;
+            string name = principal.FindFirst(JwtClaimTypes.Name)?.Value ?? user.Id;
             await _events.RaiseAsync(new UserLoginSuccessEvent(provider, providerUserId, user.Id, name));
-           // await HttpContext.SignInAsync(HttpContext, provider, additionalLocalClaims.ToArray(),  localSignInProps);
+
+            // HERE ERROR
+            await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, principal, localSignInProps);
 
             // delete temporary cookie used during external authentication
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+           // await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            // delete temporary cookie used during external authentication
 
             // validate return URL and redirect back to authorization endpoint or a local page
             var returnUrl = result.Properties.Items["returnUrl"];
@@ -424,13 +402,13 @@ namespace AGAT.LocoDispatcher.Web.AuthServer.Controllers
                 //    id.AddClaims(roles);
                 //}
 
-                await HttpContext.SignInAsync(IdentityConstants.ExternalScheme, new ClaimsPrincipal(id), props);
+                await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(id), props);
 
                 //await HttpContext.SignInAsync(
                 //    IdentityServer4.IdentityServerConstants.ExternalCookieAuthenticationScheme,
                 //    new ClaimsPrincipal(id),
                 //    props);
-                return Redirect(props.RedirectUri);
+                return Redirect(returnUrl);
             }
             else
             {
@@ -541,14 +519,6 @@ namespace AGAT.LocoDispatcher.Web.AuthServer.Controllers
             {
                 localSignInProps.StoreTokens(new[] { new AuthenticationToken { Name = "id_token", Value = id_token } });
             }
-        }
-
-        private void ProcessLoginCallbackForWsFed(AuthenticateResult externalResult, List<Claim> localClaims, AuthenticationProperties localSignInProps)
-        {
-        }
-
-        private void ProcessLoginCallbackForSaml2p(AuthenticateResult externalResult, List<Claim> localClaims, AuthenticationProperties localSignInProps)
-        {
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,24 +9,38 @@ namespace AGAT.LocoDispatcher.Web.AuthServer.Scope
 {
     public static class Config
     {
+        public static IEnumerable<IdentityResource> GetIdentityResources()
+        {
+            return new IdentityResource[]
+            {
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
+            };
+        }
         public static IEnumerable<ApiScope> ApiScopes =>
             new List<ApiScope>
             {
-            new ApiScope("app", "web app")
+            new ApiScope("api", "api")
             };
         public static IEnumerable<Client> Clients =>
            new List<Client>
            {
-                new Client
+                 new Client
                 {
-                    ClientId = "webapp",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-
-                     ClientSecrets =
-                    {
-                        new Secret("Agat_!1s_1T".Sha256())
-                    },
-                    AllowedScopes = { "app" }
+                    ClientId = "spa-client",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RedirectUris = {"http://localhost:4200/account/signin-callback" },
+                    AllowedCorsOrigins =     { "http://localhost:4200" },
+                    PostLogoutRedirectUris = { "http://localhost:4200/account/signout-redirect"},
+                    RequireClientSecret = false,
+                    RequireConsent = false,
+                    AlwaysIncludeUserClaimsInIdToken=true,
+                    AllowOfflineAccess = true,
+                    AllowedScopes = {
+                            IdentityServerConstants.StandardScopes.OpenId,
+                            IdentityServerConstants.StandardScopes.Profile,
+                            "api"
+                    }
                 }
            };
 }
