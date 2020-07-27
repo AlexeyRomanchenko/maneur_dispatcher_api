@@ -22,15 +22,7 @@ namespace AGAT.LocoDispatcher.Web.Frontend.App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin() //WithOrigins("http://localhost:4200")
-                    .AllowAnyMethod()
-                    //.AllowCredentials()
-                    .AllowAnyHeader());
-            });
-            services.AddRazorPages();
+            //services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,16 +37,18 @@ namespace AGAT.LocoDispatcher.Web.Frontend.App
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
+            //app.UseFileServer();
             app.UseRouting();
-            app.UseCors("CorsPolicy");
-            app.UseAuthorization();
-
+            //app.UseCors("CorsPolicy");
+            //app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                //endpoints.MapHub<ChatHub>("/chat");
             });
+            
         }
     }
 }

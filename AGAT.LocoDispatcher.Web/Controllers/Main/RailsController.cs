@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AGAT.LocoDispatcher.Business.Classes;
 using AGAT.LocoDispatcher.Business.Models.RailsModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AGAT.LocoDispatcher.Web.Controllers
@@ -17,6 +18,7 @@ namespace AGAT.LocoDispatcher.Web.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public IEnumerable<Rail> Get(int id)
         {
             if (id > 0)

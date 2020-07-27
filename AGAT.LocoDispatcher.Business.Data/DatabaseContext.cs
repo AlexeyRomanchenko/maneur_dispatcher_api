@@ -29,7 +29,7 @@ namespace AGAT.LocoDispatcher.Data
             if (!optionsBuilder.IsConfigured)
             {
                 string connectionString = ConnectionFacade.GetConnectionString();
-                optionsBuilder.UseSqlite(connectionString);
+                optionsBuilder.UseSqlServer(connectionString);
             }
         }
     }

@@ -21,33 +21,15 @@ namespace AGAT.LocoDispatcher.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => 
-                {
-                    options.RequireHttpsMetadata = false;
-                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidIssuer = Auth.ISSUER,
-
-                        ValidateAudience = true,
-                        ValidAudience = Auth.CLIENT,
-                        ValidateLifetime = true,
-
-                        IssuerSigningKey = Auth.GetSymmetricSecurityKey(),
-                        ValidateIssuerSigningKey = true
-                    };
-                });
-
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin() //WithOrigins("http://localhost:4200")
+                    builder => builder.WithOrigins("http://localhost:4200", "http://localhost:3000")
                     .AllowAnyMethod()
-                    //.AllowCredentials()
+                    .AllowCredentials()
                     .AllowAnyHeader());
             });
-            services.AddSignalR(options => 
+            services.AddSignalR(options =>
             {
                 options.EnableDetailedErrors = true;
             });
@@ -69,6 +51,7 @@ namespace AGAT.LocoDispatcher.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
             ConnectionFacade.SetConnectionString(
                 _configuration.GetConnectionString("MySqliteDatabase"), 
                 _configuration.GetConnectionString("AsusDatabase"));
@@ -80,9 +63,10 @@ namespace AGAT.LocoDispatcher.Web
             app.UseAuthorization();
             app.UseAuthentication();
             app.UseEndpoints(route =>
-            {               
-                route.MapControllers();
+            {
                 route.MapHub<ConnectionHub>("/chat");
+                route.MapControllers();
+
             });
         }
 

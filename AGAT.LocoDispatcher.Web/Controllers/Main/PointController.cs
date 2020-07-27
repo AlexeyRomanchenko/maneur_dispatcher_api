@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AGAT.LocoDispatcher.Business.Classes.Managers;
 using AGAT.LocoDispatcher.Business.Models.RailsModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AGAT.LocoDispatcher.Web.Controllers.Main
