@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Quartz;
 using System.Threading.Tasks;
 
 namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
 {
-    public class Parser
+    public class Parser : ParserBase, IJob
     {
-        
+        public async Task Execute(IJobExecutionContext context)
+        {
+            await ParseToJson("wewe");
+        }
     }
 }

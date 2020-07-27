@@ -2,6 +2,5 @@
 {
     interface IParser
     {
-        void ParseToJson(string jsonData);
     }
 }
