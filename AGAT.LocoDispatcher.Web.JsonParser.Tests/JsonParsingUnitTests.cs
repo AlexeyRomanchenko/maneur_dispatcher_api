@@ -29,6 +29,5 @@ namespace AGAT.LocoDispatcher.Web.JsonParser.Tests
                 throw ex;
             }
         }
-
     }
 }
