@@ -1,6 +1,10 @@
-﻿using AGAT.LocoDispatcher.Data.Models.EventModels;
-using AGAT.LocoDispatcher.Web.JsonPasrer.Constants;
+﻿using AGAT.LocoDispatcher.Constants;
+using AGAT.LocoDispatcher.Data.Models.EventModels;
 using System;
+using CheckpointEvent = AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels.CheckpointEvent;
+using EmergencyEvent = AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels.EmergencyEvent;
+using StartMoveEvent = AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels.StartMoveEvent;
+using StopMoveEvent = AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels.StopMoveEvent;
 
 namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
 {

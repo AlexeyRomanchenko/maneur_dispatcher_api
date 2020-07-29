@@ -1,11 +1,7 @@
-﻿namespace AGAT.LocoDispatcher.Data.Models.EventModels
+﻿namespace AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels
 {
     public class CheckpointEvent: MoveEventBase
     {
-        public CheckpointEvent()
-        {
-
-        }
         public CheckpointEvent(string type,
             int timestamp,
             string trainId,

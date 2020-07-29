@@ -15,9 +15,9 @@ namespace AGAT.LocoDispatcher.Web.JsonParser.Tests
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        public void EmptyStringShouldThrowException(string mockJson)
+        public async Task EmptyStringShouldThrowException(string mockJson)
         {
-            Assert.Throws<ArgumentNullException>(()=> _jsonOperator.ParseToJson(mockJson));
+            await Assert.ThrowsAsync<ArgumentNullException>(async()=> await _jsonOperator.ParseToJson(mockJson));
         }
 
         [Theory]
@@ -28,7 +28,7 @@ namespace AGAT.LocoDispatcher.Web.JsonParser.Tests
             {
                 DriveOperator drive = new DriveOperator();
                 string jsonDataString =  await drive.GetJSONFromFileAsync(path);
-                _jsonOperator.ParseToJson(jsonDataString);
+                await _jsonOperator.ParseToJson(jsonDataString);
                 return;
             }
             catch(Exception ex)

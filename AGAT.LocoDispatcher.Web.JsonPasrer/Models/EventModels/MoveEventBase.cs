@@ -1,12 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using AGAT.LocoDispatcher.Data.Models.EventModels;
 
-namespace AGAT.LocoDispatcher.Data.Models.EventModels
-{
-    [Table("Events")]
+namespace AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels
+{ 
     public class MoveEventBase: IEvent
     {
-        [Key]
         public int Id { get; set; } 
         public string Type { get; set; }
         public int Timestamp { get; set; }
