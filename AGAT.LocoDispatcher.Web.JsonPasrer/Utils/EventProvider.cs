@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AGAT.LocoDispatcher.Data.Classes
+namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
 {
     public class EventProvider
     {
@@ -27,7 +27,7 @@ namespace AGAT.LocoDispatcher.Data.Classes
                             StartMoveEvent startMove = new StartMoveEvent
                             {
                                 Type = _event.Type,
-                                CheckPointNumber = _event.
+                                
                                 
                             };
                             await _repository.CreateStartEventAsync(startMove);
