@@ -5,23 +5,30 @@ using Xunit;
 
 namespace AGAT.LocoDispatcher.Web.JsonParser.Tests
 {
-    public class JsonParsingUnitTests: Parser
+    public class JsonParsingUnitTests: ParseJob
     {
+        private JsonOperator _jsonOperator;
+        public JsonParsingUnitTests()
+        {
+            _jsonOperator = new JsonOperator();
+        }
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        public async Task EmptyStringShouldThrowException(string mockJson)
+        public void EmptyStringShouldThrowException(string mockJson)
         {
-            await Assert.ThrowsAsync<ArgumentNullException>(async()=> await ParseToJson(mockJson));
+            Assert.Throws<ArgumentNullException>(()=> _jsonOperator.ParseToJson(mockJson));
         }
 
         [Theory]
-        [InlineData("dsjdis")]
-        public async Task JsonParseShouldPassSuccess(string mockJson)
+        [InlineData("D://messages.json")]
+        public async Task JsonParseShouldPassSuccess(string path)
         {
             try
             {
-                await ParseToJson(mockJson);
+                DriveOperator drive = new DriveOperator();
+                string jsonDataString =  await drive.GetJSONFromFileAsync(path);
+                _jsonOperator.ParseToJson(jsonDataString);
                 return;
             }
             catch(Exception ex)

@@ -14,7 +14,6 @@ namespace AGAT.LocoDispatcher.Data.Classes
             {
                 _connection = connection.Trim();
                 Init.InitData();
-               // DatabaseContext context = new DatabaseContext();
             }
             else
             {

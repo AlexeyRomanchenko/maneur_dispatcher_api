@@ -6,8 +6,9 @@ using Xunit;
 
 namespace AGAT.LocoDispatcher.Web.JsonParser.Tests
 {
-    public class ReadFileUnitTests : Parser
+    public class ReadFileUnitTests : DriveOperator
     {
+
         [Theory]
         [InlineData("D:\\messages.json")]
         public async Task ReadTextFromFileOk(string pathToFile)

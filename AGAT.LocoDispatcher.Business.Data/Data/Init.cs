@@ -19,8 +19,8 @@ namespace AGAT.LocoDispatcher.Data.Data
                         Name = "Степянка",
                         Parks = new List<Park> 
                         {
-                        new Park{Name = "Парк 1", Code = "01", ParkId =484 },
-                        new Park{Name = "Парк ГС", Code = "ГС", ParkId =483 },
+                        new Park{Name = "Парк 1", Code = "01", ParkId = 484 },
+                        new Park{Name = "Парк ГС", Code = "ГС", ParkId = 483 },
                         }
                     });
                     context.SaveChanges();
