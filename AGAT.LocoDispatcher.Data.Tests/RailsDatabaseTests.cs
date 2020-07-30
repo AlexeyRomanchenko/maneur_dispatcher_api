@@ -77,7 +77,7 @@ namespace AGAT.LocoDispatcher.Data.Tests
                     new Coord { StartFlag = false, X = 35, Y = 32 },
                 };
             var options = this.GetInMemoryConnection(nameof(AddRailsOk));
-            Rail rail = new Rail { StationId = 3, Coords = coords };         
+            Rail rail = new Rail { ParkId = 2, Coords = coords };         
             _railsRepository.Create(rail);
   
             using (var db = new DatabaseContext())
@@ -120,7 +120,7 @@ namespace AGAT.LocoDispatcher.Data.Tests
                 Station station = new Station
                 {
                     Name = "TestStation",
-                    Rails = railsMoq
+                    Parks = new List<Park>()
                 };
                 db.Stations.Add(station);
                 db.SaveChanges();
@@ -128,7 +128,7 @@ namespace AGAT.LocoDispatcher.Data.Tests
 
             using (var db = new DatabaseContext(options))
             {
-                rails = db.Rails.Where(e => e.StationId == 1).Include(e => e.Coords).ToList();
+                rails = db.Rails.Where(e => e.ParkId == 1).Include(e => e.Coords).ToList();
             }
 
             Assert.NotEmpty(rails);
@@ -172,7 +172,7 @@ namespace AGAT.LocoDispatcher.Data.Tests
             {
                Coords = coords,
                RailCode = "H_2",
-               StationId = stationId
+               ParkId = stationId
             };
             _railsRepository.Create(rail);
             using (DatabaseContext db = new DatabaseContext())

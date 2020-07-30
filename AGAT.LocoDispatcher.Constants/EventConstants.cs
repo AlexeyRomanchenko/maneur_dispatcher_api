@@ -1,4 +1,6 @@
-﻿namespace AGAT.LocoDispatcher.Web.JsonPasrer.Constants
+﻿using System;
+
+namespace AGAT.LocoDispatcher.Constants
 {
     public class EventConstants
     {

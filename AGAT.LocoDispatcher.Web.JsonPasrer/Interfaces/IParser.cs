@@ -1,7 +1,9 @@
-﻿namespace AGAT.LocoDispatcher.Web.JsonPasrer.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace AGAT.LocoDispatcher.Web.JsonPasrer.Interfaces
 {
     interface IParser
     {
-        void ParseToJson(string jsonString);
+        Task ParseToJson(string jsonString);
     }
 }
