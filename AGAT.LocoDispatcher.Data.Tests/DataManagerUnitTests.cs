@@ -41,5 +41,19 @@ namespace AGAT.LocoDispatcher.Data.Tests
             var events = await manager.stopEventRepository.GetStopOutsideAsync();
             Assert.NotEmpty(events);
         }
+
+        [Fact]
+        public async Task GetEmergencyEvents()
+        {
+            var events = await manager.emergencyRepository.GetAsync();
+            Assert.NotEmpty(events);
+        }
+
+        [Fact]
+        public async Task GetCheckpointEvents()
+        {
+            var events = await manager.checkpointEventRepository.GetAsync();
+            Assert.NotEmpty(events);
+        }
     }
 }
