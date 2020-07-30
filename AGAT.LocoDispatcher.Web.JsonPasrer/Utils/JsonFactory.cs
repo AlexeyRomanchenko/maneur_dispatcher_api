@@ -1,5 +1,5 @@
 ﻿using AGAT.LocoDispatcher.Constants;
-using AGAT.LocoDispatcher.Data.Models.EventModels;
+using AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels;
 using System;
 using CheckpointEvent = AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels.CheckpointEvent;
 using EmergencyEvent = AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels.EmergencyEvent;
@@ -22,7 +22,10 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
                             (int)jsonObject.timestamp,
                             (int)jsonObject.direction,
                             (int)jsonObject.direction_parity,
-                            jsonObject.message.ToString());
+                            jsonObject.message.ToString(),
+                            jsonObject.train_id.ToString(),
+                            jsonObject.track_number.ToString(),
+                            jsonObject.checkpoint_number.ToString());
                         return startEvent;
                     }
 
@@ -39,7 +42,8 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
                             (int)jsonObject.distance,
                             jsonObject.checkpoint_number.ToString(),
                             jsonObject.track_number.ToString(),
-                            jsonObject.message.ToString()
+                            jsonObject.message.ToString(),
+                            jsonObject.train_id.ToString()
                             );
                         return stopEvent;
                     }
@@ -74,7 +78,8 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
                                 (int)jsonObject.distance,
                                 jsonObject.checkpoint_number.ToString(),
                                 jsonObject.track_number.ToString(),
-                                jsonObject.message.ToString()
+                                jsonObject.message.ToString(),
+                                jsonObject.train_id.ToString()
                                 );
                         return stopEvent;
                     }

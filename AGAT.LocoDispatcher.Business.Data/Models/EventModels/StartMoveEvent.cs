@@ -1,4 +1,6 @@
-﻿namespace AGAT.LocoDispatcher.Data.Models.EventModels
+﻿using System;
+
+namespace AGAT.LocoDispatcher.Data.Models.EventModels
 {
     public class StartMoveEvent : MoveEventBase
     {

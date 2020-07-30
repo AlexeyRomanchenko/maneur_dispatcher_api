@@ -8,7 +8,8 @@
         int distance,
         string checkpointNumber,
         string trackNumber,
-        string message)
+        string message,
+        string trainId)
     {
         this.Type = type;
         this.Timestamp = timestamp;
@@ -16,6 +17,7 @@
         this.CheckPointNumber = checkpointNumber;
         this.TrackNumber = trackNumber;
         this.Message = message;
+        this.TrainId = trainId;
     }
         public int Distance { get; set; }
     }

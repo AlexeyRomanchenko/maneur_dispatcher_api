@@ -1,5 +1,5 @@
 ﻿
-namespace AGAT.LocoDispatcher.Data.Models.EventModels
+namespace AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels
 {
     public interface IEvent
     {

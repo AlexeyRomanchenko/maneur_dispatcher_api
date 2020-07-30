@@ -1,7 +1,7 @@
-﻿using AGAT.LocoDispatcher.Data.Classes;
-using AGAT.LocoDispatcher.Data.Models.EventModels;
+﻿using AGAT.LocoDispatcher.Constants;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Interfaces;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels;
+using AGAT.LocoDispatcher.Web.JsonPasrer.Providers;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
@@ -11,11 +11,11 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
     public class JsonOperator : IParser
     {
         private JsonFactory _jsonFactory;
-        private EventProvider _eventProvider;
+        private ProviderFactory _providerFactory;
         public JsonOperator()
         {
             _jsonFactory = new JsonFactory();
-            _eventProvider = new EventProvider();
+            _providerFactory = new ProviderFactory();
         }
         public async Task ParseToJson(string jsonData)
         {
@@ -37,7 +37,13 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
                 {
                     throw new ArgumentException("event is not valid");
                 }
-                await _eventProvider.CreateDataEvent(_event);
+                IProvider provider = _providerFactory.GetProviderFactory(_event);
+                if (provider == null)
+                {
+                    throw new ArgumentException("provider is not valid");
+                }
+                provider.Create(_event);
+
                 Console.WriteLine(_event.Type);
             }
         }
