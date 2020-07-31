@@ -12,7 +12,7 @@ namespace AGAT.LocoDispatcher.Data.Models.EventModels
         public string TrainNumber { get; set; }
         public string ESR { get; set; }
         public DateTime StartShift { get; set; }
-        public DateTime EndShift { get; set; }
+        public DateTime? EndShift { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

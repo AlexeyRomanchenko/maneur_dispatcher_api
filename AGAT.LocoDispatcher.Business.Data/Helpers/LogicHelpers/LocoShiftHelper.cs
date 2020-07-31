@@ -14,7 +14,7 @@ namespace AGAT.LocoDispatcher.Data.Helpers.LogicHelpers
         {
             manager = new DataManager();
         }
-        public async Task AddLocoShiftByNameAsync(LocoShiftEvent loco, int timestamp)
+        public async Task AddLocoShiftAsync(LocoShiftEvent loco, int timestamp)
         {
             try
             {
