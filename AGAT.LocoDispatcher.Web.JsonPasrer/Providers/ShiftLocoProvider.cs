@@ -16,13 +16,18 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Providers
         }
         public async Task Create(IEvent _event)
         {
+            
             ShiftLocomotiveEvent shiftLocomotive = (ShiftLocomotiveEvent)_event;
-            LocoShiftEvent locoShift = new LocoShiftEvent 
+            foreach (var train in shiftLocomotive.Trains)
             {
-            TrainNumber = shiftLocomotive.TrackNumber,
-            ESR = shiftLocomotive.ESR,
-            };
-            await helper.AddLocoShiftAsync(locoShift, shiftLocomotive.Timestamp);
+                LocoShiftEvent locoShift = new LocoShiftEvent
+                {
+                    TrainNumber = train,
+                    ESR = shiftLocomotive.ESR,
+                };
+                await helper.AddLocoShiftAsync(locoShift, shiftLocomotive.Timestamp);
+            }
+
         }
     }
 }

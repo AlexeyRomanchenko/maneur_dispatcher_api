@@ -29,19 +29,28 @@ namespace AGAT.LocoDispatcher.Data.Helpers.LogicHelpers
                     {
                         CreatedAt = DateTime.Now,
                         ESR = loco.ESR,
+                        IsValid = true,
                         StartShift = ConvertHelper.TimestampToDateTime(timestamp),
                         TrainNumber = loco.TrainNumber
                     };
                     await manager.shiftRepository.CreateAsync(shiftEvent);
                 }
+                else if (!locoShift.IsValid) 
+                {
+                    locoShift.StartShift = ConvertHelper.TimestampToDateTime(timestamp);
+                    locoShift.ESR = loco.ESR;
+                    locoShift.IsValid = true;
+                    await manager.shiftRepository.UpdateShiftEndAsync(locoShift);
+                }
                 else
                 {
                     locoShift.EndShift = ConvertHelper.TimestampToDateTime(timestamp);
                     await manager.shiftRepository.UpdateShiftEndAsync(locoShift);
-                    LocoShiftEvent newShiftEvent = new LocoShiftEvent 
+                    LocoShiftEvent newShiftEvent = new LocoShiftEvent
                     {
                         CreatedAt = DateTime.Now,
-                        ESR = locoShift.ESR,
+                        ESR = locoShift.ESR + "OK" ,
+                        IsValid = true,
                         StartShift = ConvertHelper.TimestampToDateTime(timestamp),
                         TrainNumber = locoShift.TrainNumber
                     };

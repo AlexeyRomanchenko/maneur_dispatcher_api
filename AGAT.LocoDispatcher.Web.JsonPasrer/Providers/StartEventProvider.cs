@@ -1,4 +1,5 @@
-﻿using AGAT.LocoDispatcher.Data.Managers;
+﻿using AGAT.LocoDispatcher.Data.Helpers.LogicHelpers;
+using AGAT.LocoDispatcher.Data.Managers;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Interfaces;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels;
 using System;
@@ -11,15 +12,18 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Providers
     public class StartEventProvider : IProvider
     {
         private DataManager _manager;
+        private EventHelper _helper;
         public StartEventProvider()
         {
             _manager = new DataManager();
+            _helper = new EventHelper();
         }
         public async Task Create(IEvent _event)
         {
             try
             {
                 StartMoveEvent startMove = (StartMoveEvent)_event;
+                int shiftId = await _helper.GetLocoShiftIdByLocoNumber(startMove.TrainId);
                 StartModel moveEvent = new StartModel
                 {
                     Type = startMove.Type,
@@ -27,9 +31,11 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Providers
                     Direction = startMove.Direction,
                     DirectionParity = startMove.DirectionParity,
                     Timestamp = startMove.Timestamp,
+                    ShiftId = shiftId,
                     TrackNumber = startMove.TrackNumber,
                     Message = startMove.Message
                 };
+                
                 await _manager.startEventRepository.CreatAsync(moveEvent);
             }
             catch (FormatException ex)

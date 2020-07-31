@@ -10,33 +10,26 @@ using Xunit;
 namespace AGAT.LocoDispatcher.Data.Tests
 {
 
-    public class LocoHelperUnitTests
+    public class EventHelperUnitTests
     {
-        private LocoShiftHelper helper;
-        public LocoHelperUnitTests()
+        private EventHelper helper;
+        public EventHelperUnitTests()
         {
-            helper = new LocoShiftHelper();
+            helper = new EventHelper();
         }
        
         [Theory]
-        [InlineData(1596180898)]
-        public async Task AddLogoShiftHelperOk(int timestamp)
+        [InlineData("test")]
+        public async Task GetShiftIdOk(string locoNumber)
         {
-            bool isAdded = false;            
-            LocoShiftEvent loco = new LocoShiftEvent 
-            {
-                ESR = "140043",
-                TrainNumber = "test"
-            };
-            await helper.AddLocoShiftAsync(loco, timestamp);
-            isAdded = true;
+            int shiftId = await helper.GetLocoShiftIdByLocoNumber(locoNumber);
             //using (DatabaseContext context = new DatabaseContext())
             //{
             //    IEnumerable<LocoShiftEvent> events = await context.LocoShiftEvents.Where(e => e.TrainNumber == "test").ToListAsync();
             //    context.RemoveRange(events);
             //    await context.SaveChangesAsync();
             //}
-            Assert.True(isAdded);
+            Assert.NotEqual(0, shiftId);
         }
     }
 }
