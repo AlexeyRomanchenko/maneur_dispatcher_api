@@ -19,7 +19,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
             try
             {
                 string json = await _drive.GetJSONFromFileAsync(pathToFile);
-                _jsonOperator.ParseToJson(json);
+                await _jsonOperator.ParseToJson(json);
             }
             catch (Exception ex)
             {

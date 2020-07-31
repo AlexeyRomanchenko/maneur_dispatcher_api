@@ -22,6 +22,8 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
                     return new CheckpointProvider();
                 case EventConstants.Emergency:
                     return new EmergencyProvider();
+                case EventConstants.StartShiftLocomotives:
+                    return new ShiftLocoProvider();
                 default:
                     Console.WriteLine("");
                     return null;

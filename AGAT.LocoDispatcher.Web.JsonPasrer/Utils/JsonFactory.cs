@@ -1,6 +1,7 @@
 ﻿using AGAT.LocoDispatcher.Constants;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels;
 using System;
+using System.Collections.Generic;
 using CheckpointEvent = AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels.CheckpointEvent;
 using EmergencyEvent = AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels.EmergencyEvent;
 using StartMoveEvent = AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels.StartMoveEvent;
@@ -98,6 +99,29 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
                                 (int)jsonObject.emergency_status,
                                 jsonObject.message.ToString());
                         return emergencyEvent;
+                    }
+                    catch (FormatException ex)
+                    {
+                        throw ex;
+                    }
+                case EventConstants.StartShiftLocomotives:
+                    try
+                    {
+                        List<string> _trains = new List<string>();
+                        dynamic trains = jsonObject.trains;
+                            foreach (var train in trains)
+                            {
+                            _trains.Add(train.train_id.ToString());
+                            }
+                        
+                        ShiftLocomotiveEvent shiftLocomotive = new ShiftLocomotiveEvent(
+                             jsonObject.type.ToString(),
+                                (int)jsonObject.timestamp,
+                                jsonObject.esr.ToString(),
+                                jsonObject.message.ToString(),
+                                _trains
+                            );
+                         return shiftLocomotive;
                     }
                     catch (FormatException ex)
                     {

@@ -12,7 +12,8 @@ namespace AGAT.LocoDispatcher.Data.Models.EventModels
         public string Type { get; set; }
         public int Timestamp { get; set; }
         public string Message { get; set; }
-        public string TrainId { get; set; }
+        public int ShiftId { get; set; }
+        public LocoShiftEvent Shift { get; set; }
         public string CheckPointNumber { get; set; }
         public string TrackNumber { get; set; }
         public DateTime CreatedAt { get; set; }

@@ -17,7 +17,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Schedulers
             ITrigger trigger = TriggerBuilder.Create()
                 .WithSimpleSchedule(e => 
                     e.WithIntervalInSeconds(5)
-                    .RepeatForever())
+                    .WithRepeatCount(0))
                 .Build();
             await _scheduler.ScheduleJob(parserJob, trigger);
         }

@@ -42,7 +42,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
                 {
                     throw new ArgumentException("provider is not valid");
                 }
-                provider.Create(_event);
+                await provider.Create(_event);
 
                 Console.WriteLine(_event.Type);
             }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AGAT.LocoDispatcher.Data
 {
-    public class DatabaseContext: DbContext
+    public class DatabaseContext : DbContext
     {
         public DbSet<Coord> Coords { get; set; }
         public DbSet<Rail> Rails { get; set; }
@@ -15,13 +15,13 @@ namespace AGAT.LocoDispatcher.Data
         public DbSet<Park> Parks { get; set; }
         public DbSet<Carriage> Carriages { get; set; }
         public DbSet<RoutePlate> RoutePlates { get; set; }
-        public DbSet<Locomotive> Locomotives { get; set; }
         public DbSet<Point> Points { get; set; }
         public DbSet<MoveEventBase> Events { get; set; }
         public DbSet<StartMoveEvent> StartEvents { get; set; }
         public DbSet<StopMoveEvent> StopEvents { get; set; }
         public DbSet<CheckpointEvent> CheckpointEvents { get; set; }
         public DbSet<EmergencyEvent> EmergencyEvents { get; set; }
+        public DbSet<LocoShiftEvent> LocoShiftEvents { get; set; }
     
         public DatabaseContext()
         {
