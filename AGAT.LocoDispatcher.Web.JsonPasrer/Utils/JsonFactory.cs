@@ -121,7 +121,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
                                 jsonObject.message.ToString(),
                                 _trains
                             );
-                         return null;
+                         return shiftLocomotive;
                     }
                     catch (FormatException ex)
                     {

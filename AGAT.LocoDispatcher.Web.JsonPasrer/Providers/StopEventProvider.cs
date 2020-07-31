@@ -23,8 +23,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Providers
                 Distance = stopMove.Distance,
                 Message = stopMove.Message,
                 Timestamp = stopMove.Timestamp,
-                TrackNumber = stopMove.TrackNumber,
-                TrainId = stopMove.TrainId
+                TrackNumber = stopMove.TrackNumber
             };
             await _manager.stopEventRepository.CreatAsync(stopMoveEvent);
         }

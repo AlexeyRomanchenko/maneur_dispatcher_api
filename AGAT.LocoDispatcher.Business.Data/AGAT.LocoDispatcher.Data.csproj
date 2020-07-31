@@ -7,6 +7,16 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200729081816_addCheckpointEvent.cs" />
     <Compile Remove="Migrations\20200729081816_addCheckpointEvent.Designer.cs" />
+    <Compile Remove="Migrations\20200731053825_changeLocoKeyRemoveLocomotivesTable.cs" />
+    <Compile Remove="Migrations\20200731053825_changeLocoKeyRemoveLocomotivesTable.Designer.cs" />
+    <Compile Remove="Migrations\20200731054041_changeShiftsTableName.cs" />
+    <Compile Remove="Migrations\20200731054041_changeShiftsTableName.Designer.cs" />
+    <Compile Remove="Migrations\20200731054513_addShiftsInsteadLocomotives.cs" />
+    <Compile Remove="Migrations\20200731054513_addShiftsInsteadLocomotives.Designer.cs" />
+    <Compile Remove="Migrations\20200731054642_addShiftsInsteadLocomotives.cs" />
+    <Compile Remove="Migrations\20200731054642_addShiftsInsteadLocomotives.Designer.cs" />
+    <Compile Remove="Migrations\20200731054746_addShiftsInsteadLocomotives.cs" />
+    <Compile Remove="Migrations\20200731054746_addShiftsInsteadLocomotives.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

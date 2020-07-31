@@ -26,8 +26,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Providers
                     Message = checkpointEvent.Message,
                     Speed = checkpointEvent.Speed,
                     Timestamp = checkpointEvent.Timestamp,
-                    TrackNumber = checkpointEvent.TrackNumber,
-                    TrainId = checkpointEvent.TrainId
+                    TrackNumber = checkpointEvent.TrackNumber
                 };
                 await _manager.checkpointEventRepository.CreatAsync(checkpoint);
             }

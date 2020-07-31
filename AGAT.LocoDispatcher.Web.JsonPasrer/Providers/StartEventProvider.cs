@@ -27,7 +27,6 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Providers
                     Direction = startMove.Direction,
                     DirectionParity = startMove.DirectionParity,
                     Timestamp = startMove.Timestamp,
-                    TrainId = startMove.TrainId,
                     TrackNumber = startMove.TrackNumber,
                     Message = startMove.Message
                 };

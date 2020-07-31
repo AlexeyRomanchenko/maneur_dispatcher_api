@@ -4,14 +4,16 @@ using AGAT.LocoDispatcher.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AGAT.LocoDispatcher.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200731053436_addLocomotiveShift")]
+    partial class addLocomotiveShift
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,9 +23,9 @@ namespace AGAT.LocoDispatcher.Data.Migrations
 
             modelBuilder.Entity("AGAT.LocoDispatcher.Data.Models.EventModels.LocoShiftEvent", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt")
@@ -43,7 +45,7 @@ namespace AGAT.LocoDispatcher.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Shifts");
+                    b.ToTable("LocomotiveShifts");
                 });
 
             modelBuilder.Entity("AGAT.LocoDispatcher.Data.Models.EventModels.MoveEventBase", b =>
@@ -63,11 +65,14 @@ namespace AGAT.LocoDispatcher.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("LocoId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("LocoShiftsId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ShiftId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Timestamp")
                         .HasColumnType("int");
@@ -80,7 +85,7 @@ namespace AGAT.LocoDispatcher.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ShiftId");
+                    b.HasIndex("LocoShiftsId");
 
                     b.ToTable("Events");
 
@@ -140,6 +145,30 @@ namespace AGAT.LocoDispatcher.Data.Migrations
                     b.HasIndex("RoutePlateId");
 
                     b.ToTable("Coords");
+                });
+
+            modelBuilder.Entity("AGAT.LocoDispatcher.Data.Models.Rails.Locomotive", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Angle")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("X")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Y")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locomotives");
                 });
 
             modelBuilder.Entity("AGAT.LocoDispatcher.Data.Models.Rails.Point", b =>
@@ -318,11 +347,9 @@ namespace AGAT.LocoDispatcher.Data.Migrations
 
             modelBuilder.Entity("AGAT.LocoDispatcher.Data.Models.EventModels.MoveEventBase", b =>
                 {
-                    b.HasOne("AGAT.LocoDispatcher.Data.Models.EventModels.LocoShiftEvent", "Shift")
+                    b.HasOne("AGAT.LocoDispatcher.Data.Models.EventModels.LocoShiftEvent", "LocoShifts")
                         .WithMany()
-                        .HasForeignKey("ShiftId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LocoShiftsId");
                 });
 
             modelBuilder.Entity("AGAT.LocoDispatcher.Data.Models.Rails.Carriage", b =>

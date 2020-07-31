@@ -27,8 +27,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Providers
                     EmergencyType = emergencyEvent.EmergencyType,
                     Message = emergencyEvent.Message,
                     Timestamp = emergencyEvent.Timestamp,
-                    TrackNumber = emergencyEvent.TrackNumber,
-                    TrainId = emergencyEvent.TrainId
+                    TrackNumber = emergencyEvent.TrackNumber
                 };
                 await _manager.emergencyRepository.CreateAsync(emergency);
             }
