@@ -1,0 +1,6 @@
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: D:\Users\131_RAV\source\repos\AGAT.LocoDispatcher.Web\AGAT.LocoDispatcher.Web.JsonPasrer
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: D:\Users\131_RAV\source\repos\AGAT.LocoDispatcher.Web\AGAT.LocoDispatcher.Web.JsonPasrer

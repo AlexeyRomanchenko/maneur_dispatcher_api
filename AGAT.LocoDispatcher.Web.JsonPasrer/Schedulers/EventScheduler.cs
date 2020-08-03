@@ -9,10 +9,11 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Schedulers
     {
         public async static void Start(string path) 
         {
-            IScheduler _scheduler = await StdSchedulerFactory.GetDefaultScheduler();
+             IScheduler _scheduler = await StdSchedulerFactory.GetDefaultScheduler();
             await _scheduler.Start();
 
-            IJobDetail parserJob = JobBuilder.Create<ParseJob>().UsingJobData("path", path).Build();
+            IJobDetail parserJob = JobBuilder.Create<ParseJob>()
+                .UsingJobData("path", path).Build();
 
             ITrigger trigger = TriggerBuilder.Create()
                 .WithSimpleSchedule(e => 
