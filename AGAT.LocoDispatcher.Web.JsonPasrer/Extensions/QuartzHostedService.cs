@@ -42,7 +42,11 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Extensions
         {
             return TriggerBuilder.Create()
             .WithIdentity(jobMetadata.JobId.ToString())
-            .WithSimpleSchedule(e=>e.WithIntervalInSeconds(jobMetadata.Period))
+            .WithSimpleSchedule(e => 
+            { 
+                e.WithIntervalInSeconds(jobMetadata.Period);
+                e.RepeatForever();
+            })
             .WithDescription($"{jobMetadata.JobName}")
             .Build();
         }

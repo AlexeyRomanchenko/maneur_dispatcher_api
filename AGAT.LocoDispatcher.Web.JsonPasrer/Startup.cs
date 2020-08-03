@@ -51,11 +51,6 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            //loggerFactory.AddLogger(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
-            
-            //ILogger logger = loggerFactory.CreateLogger("FileLogger");
-            //logger.LogInformation("TEST IS OK");
             app.UseRouting();
            
             app.UseEndpoints(endpoints =>
