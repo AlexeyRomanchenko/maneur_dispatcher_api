@@ -45,7 +45,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -56,8 +56,6 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer
             
             //ILogger logger = loggerFactory.CreateLogger("FileLogger");
             //logger.LogInformation("TEST IS OK");
-            
-            string path = configuration.GetValue<string>("PathToFolder");
             app.UseRouting();
            
             app.UseEndpoints(endpoints =>

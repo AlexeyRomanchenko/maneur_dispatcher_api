@@ -43,7 +43,6 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Extensions
             return TriggerBuilder.Create()
             .WithIdentity(jobMetadata.JobId.ToString())
             .WithSimpleSchedule(e=>e.WithIntervalInSeconds(jobMetadata.Period))
-            .UsingJobData("path", jobMetadata.Path)
             .WithDescription($"{jobMetadata.JobName}")
             .Build();
         }
@@ -51,6 +50,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Extensions
         {
             return JobBuilder
             .Create(jobMetadata.JobType)
+            .UsingJobData("path", jobMetadata.Path)
             .WithIdentity(jobMetadata.JobId.ToString())
             .WithDescription($"{jobMetadata.JobName}")
             .Build();
