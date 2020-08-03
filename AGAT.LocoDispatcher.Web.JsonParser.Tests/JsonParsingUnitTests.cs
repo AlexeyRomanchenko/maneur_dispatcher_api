@@ -21,7 +21,7 @@ namespace AGAT.LocoDispatcher.Web.JsonParser.Tests
         }
 
         [Theory]
-        [InlineData("D://messages.json")]
+        [InlineData("D://json/messages.json")]
         public async Task JsonParseShouldPassSuccess(string path)
         {
             try
@@ -36,5 +36,21 @@ namespace AGAT.LocoDispatcher.Web.JsonParser.Tests
                 throw ex;
             }
         }
+
+        [Theory]
+        [InlineData("D://json")]
+        public async Task GetJSONFilesSuccess(string path)
+        {
+            try
+            {
+                DriveOperator drive = new DriveOperator();
+                 await drive.GetFilesFromDirectoryAndParseAsync(path);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

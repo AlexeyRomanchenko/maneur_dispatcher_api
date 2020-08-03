@@ -7,19 +7,21 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
     public class ParseJob : IJob
     {
         private DriveOperator _drive;
-        private JsonOperator _jsonOperator;
         public ParseJob()
         {
             _drive = new DriveOperator();
-            _jsonOperator = new JsonOperator();
         }
-        private string pathToFile = "D:\\json/messages.json";
         public async Task Execute(IJobExecutionContext context)
         {
             try
             {
-                string json = await _drive.GetJSONFromFileAsync(pathToFile);
-                await _jsonOperator.ParseToJson(json);
+                JobDataMap dataMap = context.JobDetail.JobDataMap;
+                string path = dataMap.GetString("path");
+                if(string.IsNullOrEmpty(path?.Trim()))
+                {
+                    throw new ArgumentNullException("PATH IS NOT VALID");
+                }
+                await _drive.GetFilesFromDirectoryAndParseAsync(path);
             }
             catch (Exception ex)
             {
