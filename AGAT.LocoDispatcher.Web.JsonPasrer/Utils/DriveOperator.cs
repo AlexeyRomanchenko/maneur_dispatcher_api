@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -7,9 +8,11 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
     public class DriveOperator
     {
         private JsonOperator _json;
-        public DriveOperator()
+        private ILogger<ParseJob> _logger;
+        public DriveOperator(ILogger<ParseJob> logger)
         {
-            _json = new JsonOperator();
+            _logger = logger;
+            _json = new JsonOperator(logger);
         }
         public async Task<string> GetJSONFromFileAsync(string pathToFile)
         {

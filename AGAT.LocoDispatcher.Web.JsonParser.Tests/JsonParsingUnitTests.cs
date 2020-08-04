@@ -1,4 +1,5 @@
 using AGAT.LocoDispatcher.Web.JsonPasrer.Utils;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -8,9 +9,9 @@ namespace AGAT.LocoDispatcher.Web.JsonParser.Tests
     public class JsonParsingUnitTests: ParseJob
     {
         private JsonOperator _jsonOperator;
-        public JsonParsingUnitTests()
+        public JsonParsingUnitTests(ILogger<ParseJob> logger)
         {
-            _jsonOperator = new JsonOperator();
+            _jsonOperator = new JsonOperator(logger);
         }
         [Theory]
         [InlineData(null)]

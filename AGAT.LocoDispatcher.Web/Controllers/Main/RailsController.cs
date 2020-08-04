@@ -18,7 +18,6 @@ namespace AGAT.LocoDispatcher.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public IEnumerable<Rail> Get(int id)
         {
             if (id > 0)
