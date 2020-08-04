@@ -67,6 +67,8 @@ namespace AGAT.LocoDispatcher.Business.Config
                 .ForMember(e => e.DestinationCode, e => e.MapFrom(e => e.DestinationCode))
                 .ForMember(e => e.Description, e => e.MapFrom(e => e.Description));
 
+                cfg.CreateMap<AsusData.Models.Assignment, Business.Models.AssignmentModels.Assignment>().ReverseMap();
+
 
                 //Mapping data from Business layer to DataLayer 
                 cfg.CreateMap<Rail, Data.Models.Rails.Rail>()

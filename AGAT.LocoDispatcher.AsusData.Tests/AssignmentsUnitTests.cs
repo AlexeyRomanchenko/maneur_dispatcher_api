@@ -28,7 +28,7 @@ namespace AGAT.LocoDispatcher.AsusData.Tests
         public async Task GetAssignmentRepositoryOk()
         {
             AssignmentRepository repository = new AssignmentRepository();
-            var assignments = await repository.GetAsync();
+            var assignments = await repository.GetActiveAsync();
             Assert.NotEmpty(assignments);
 
         }
