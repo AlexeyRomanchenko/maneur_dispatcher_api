@@ -25,6 +25,8 @@ namespace AGAT.LocoDispatcher.AsusData.Models
         public DateTime? StartDate { get; set; }
         [Column("dt_end")]
         public DateTime? EndDate { get; set; }
+        [Column("dt_ins")]
+        public DateTime? InsertDate { get; set; }
         [Column("utv")]
         public int? AppliedCode { get; set; }
     }

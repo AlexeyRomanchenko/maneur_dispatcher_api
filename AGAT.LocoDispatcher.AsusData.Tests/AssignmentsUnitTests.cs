@@ -30,7 +30,6 @@ namespace AGAT.LocoDispatcher.AsusData.Tests
             AssignmentRepository repository = new AssignmentRepository();
             var assignments = await repository.GetActiveAsync();
             Assert.NotEmpty(assignments);
-
         }
     }
 }

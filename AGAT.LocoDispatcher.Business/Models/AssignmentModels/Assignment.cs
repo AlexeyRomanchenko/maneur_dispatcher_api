@@ -14,6 +14,7 @@ namespace AGAT.LocoDispatcher.Business.Models.AssignmentModels
         public string PaymentCode { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public DateTime? InsertDate { get; set; }
         public int? AppliedCode { get; set; }
     }
 }

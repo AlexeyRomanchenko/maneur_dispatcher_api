@@ -17,9 +17,15 @@ namespace AGAT.LocoDispatcher.Web.Controllers.Assignment
         {
             manager = _manager;
         }
+        [HttpGet]
         public async Task<IEnumerable<Business.Models.AssignmentModels.Assignment>> Get()
         {
             return await manager.GetAsync();
+        }
+        [HttpGet("{code}")]
+        public async Task<IEnumerable<Business.Models.AssignmentModels.Assignment>> Get(string code)
+        {
+            return await manager.GetByCodeAsync(code);
         }
     }
 }
