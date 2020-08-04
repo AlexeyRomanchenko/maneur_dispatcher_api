@@ -13,9 +13,9 @@ namespace AGAT.LocoDispatcher.AsusData.Models
         [Column("stanc")]
         public string Station { get; set; }
         [Column("num_lok")]
-        public string LocomotiveNumber { get; set; }
+        public string LocomotiveNumber { get; set; } // HERE
         [Column("ser_lok")]
-        public string SerialNumber { get; set; }
+        public short SerialNumber { get; set; }
         [Column("cod_work")]
         public string WorkCode { get; set; }
         [Column("cod_opL")]
@@ -24,5 +24,8 @@ namespace AGAT.LocoDispatcher.AsusData.Models
         public DateTime StartDate { get; set; }
         [Column("dt_end")]
         public DateTime EndDate { get; set; }
+        [Column("utv")]
+        public int AppliedCode { get; set; }
+
     }
 }

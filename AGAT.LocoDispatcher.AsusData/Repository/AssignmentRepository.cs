@@ -15,7 +15,7 @@ namespace AGAT.LocoDispatcher.AsusData.Repository
         }
         public async Task<IEnumerable<Assignment>> GetAsync()
         {
-            return await context.Assignments.Where(e => e.EndDate == null).ToListAsync();
+            return await context.Assignments.ToListAsync();
         }
     }
 }
