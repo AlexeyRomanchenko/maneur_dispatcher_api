@@ -1,7 +1,9 @@
 using AGAT.LocoDispatcher.AsusData.Models;
+using AGAT.LocoDispatcher.AsusData.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace AGAT.LocoDispatcher.AsusData.Tests
@@ -17,9 +19,18 @@ namespace AGAT.LocoDispatcher.AsusData.Tests
         {
             using (AsusDataContext db = new AsusDataContext())
             {
-                var assignments = db.Assignments.ToList();
-                //Assert.NotEmpty(data);
+                IEnumerable<Assignment> assignments = db.Assignments.ToList();
+                Assert.NotEmpty(assignments);
             }
+        }
+
+        [Fact]
+        public async Task GetAssignmentRepositoryOk()
+        {
+            AssignmentRepository repository = new AssignmentRepository();
+            var assignments = await repository.GetAsync();
+            Assert.NotEmpty(assignments);
+
         }
     }
 }
