@@ -8,6 +8,8 @@ namespace AGAT.LocoDispatcher.AsusData.Models
     [Table("LokM_operWork")]
     public class Assignment
     {
+        [Column("lokM_operW_id")]
+        public int Id { get; set; }
         [Column("stanc")]
         public string Station { get; set; }
         [Column("num_lok")]

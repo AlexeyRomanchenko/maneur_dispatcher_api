@@ -1,11 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Extensions;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Interfaces;
-using AGAT.LocoDispatcher.Web.JsonPasrer.Schedulers;
+using AGAT.LocoDispatcher.Web.JsonPasrer.Providers;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +30,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer
             services.AddSingleton<IJobFactory, QuartzJobFactory>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             services.AddSingleton<ParseJob>();
+            services.AddSingleton<IProvider, StartEventProvider>();
             services.AddSingleton(new JobsMetadata(
                 Guid.NewGuid(),
                 typeof(ParseJob),
@@ -57,7 +54,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    await context.Response.WriteAsync("Quartz app launched");
                 });
             });
         }

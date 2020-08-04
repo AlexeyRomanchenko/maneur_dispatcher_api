@@ -2,6 +2,7 @@
 using AGAT.LocoDispatcher.Web.JsonPasrer.Interfaces;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Models.EventModels;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Providers;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
@@ -11,11 +12,13 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
     public class JsonOperator : IParser
     {
         private JsonFactory _jsonFactory;
+        private ILogger<ParseJob> logger;
         private ProviderFactory _providerFactory;
-        public JsonOperator()
+        public JsonOperator(ILogger<ParseJob> _logger)
         {
             _jsonFactory = new JsonFactory();
-            _providerFactory = new ProviderFactory();
+            logger = _logger;
+            _providerFactory = new ProviderFactory(_logger);
         }
         public async Task ParseToJson(string jsonData)
         {
