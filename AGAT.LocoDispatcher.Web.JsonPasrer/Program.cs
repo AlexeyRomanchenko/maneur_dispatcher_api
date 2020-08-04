@@ -1,3 +1,4 @@
+using AGAT.LocoDispatcher.Web.JsonPasrer.Providers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -15,9 +16,10 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>().ConfigureLogging(e => {
+                    webBuilder.UseStartup<Startup>().ConfigureLogging((context, e) => {
                         e.ClearProviders();
                         e.SetMinimumLevel(LogLevel.Information);
+                        e.AddProvider(new FileLoggerProvider(@"C:\fdf\log.txt"));
                         e.AddConsole();
                         });
                 });
