@@ -36,7 +36,8 @@ namespace AGAT.LocoDispatcher.Business.Config
                 .ForMember(e=>e.Label, dto=> dto.MapFrom(e=>e.RoutePlate));
 
                 cfg.CreateMap<Data.Models.Rails.Carriage, Carriage>()
-                .ForMember(e => e.Id, e=> e.MapFrom(e=>e.Id));
+                .ForMember(e => e.Id, e=> e.MapFrom(e=>e.Id))
+                .ForMember(e => e.Angle , e => e.MapFrom(e=>e.Angle));
 
                 cfg.CreateMap<Data.Models.Rails.RoutePlate, RoutePlate>()
                 .ForMember(e => e.Id, e => e.MapFrom(e => e.Id))
@@ -89,7 +90,8 @@ namespace AGAT.LocoDispatcher.Business.Config
                 });
 
                 cfg.CreateMap<Carriage, Data.Models.Rails.Carriage>()
-                .ForMember(e => e.Id, e => e.Ignore());
+                .ForMember(e => e.Id, e => e.Ignore())
+                .ForMember(e => e.Angle, e => e.MapFrom(e => e.Angle));
 
                 cfg.CreateMap<RoutePlate, Data.Models.Rails.RoutePlate>()
                 .ForMember(e => e.Id, e => e.Ignore())

@@ -42,7 +42,7 @@ namespace AGAT.LocoDispatcher.Web
                 foreach (var loco in locomotives)
                 {
 
-                    loco.PointId = rnd.Next(1, 36).ToString();
+                    loco.PointId = rnd.Next(1,10 ).ToString();
                     Point point = await _pointManager.GetPointByCode(loco.PointId.ToString());
                     if (point != null)
                     {
