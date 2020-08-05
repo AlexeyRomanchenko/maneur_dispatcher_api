@@ -7,5 +7,6 @@ namespace AGAT.LocoDispatcher.Business.Models.RailsModels
     public class Carriage: Coords
     {
         public int Id { get; set; }
+        public int? Angle { get; set; }
     }
 }

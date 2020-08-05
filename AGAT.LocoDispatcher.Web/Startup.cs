@@ -42,6 +42,7 @@ namespace AGAT.LocoDispatcher.Web
             services.AddTransient<RoutesManager>();
             services.AddTransient<PointManager>();
             services.AddTransient<CarriageManager>();
+            services.AddTransient<AssignmentManager>();
         }
 
        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)

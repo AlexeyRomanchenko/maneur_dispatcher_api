@@ -13,9 +13,13 @@ namespace AGAT.LocoDispatcher.AsusData.Repository
         {
             context = new AsusDataContext();
         }
-        public async Task<IEnumerable<Assignment>> GetAsync()
+        public async Task<IEnumerable<Assignment>> GetActiveAsync()
         {
-            return await context.Assignments.Where(e => e.EndDate == null).ToListAsync();
+            return await context.Assignments.Where(e=>e.EndDate == null).ToListAsync();
+        }
+        public async Task<IEnumerable<Assignment>> GetActiveByStationCodeAsync(string code)
+        {
+            return await context.Assignments.Where(e => e.EndDate == null && e.Station == code).ToListAsync();
         }
     }
 }
