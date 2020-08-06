@@ -18,19 +18,20 @@ namespace AGAT.LocoDispatcher.Web.Controllers.Main
         {
             _routesManager = routesManager;
         }
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("{station}")]
+        public async Task<IActionResult> Get(string station)
         {
             try
             {
-                if (id > 0)
+                string code = HttpContext.Request.Query["code"];
+                if (!string.IsNullOrEmpty(station?.Trim()) && !string.IsNullOrEmpty(code?.Trim()))
                 {
-                    IEnumerable<Route> routes = _routesManager.GetRoutesByParkId(id);
+                    IEnumerable<Route> routes = await _routesManager.GetRoutesByParkCodeAsync(station, code);
                     return Ok(routes);
                 }
                 else
                 {
-                    throw new ArgumentNullException("Нераспознан код");
+                    throw new ArgumentNullException("Нераспознан код станции или парка");
                 }
             }
             catch (Exception ex)

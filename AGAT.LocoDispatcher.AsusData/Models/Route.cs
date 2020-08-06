@@ -18,6 +18,8 @@ namespace AGAT.LocoDispatcher.AsusData.Models
         public int CarLength { get; set; }
         [Column("num_way")]
         public string RouteNumber { get; set; }
+        [Column("num_prk")]
+        public string ParkCode { get; set; }
         [Column("prk_id")]
         public int ParkId { get; set; }
     }

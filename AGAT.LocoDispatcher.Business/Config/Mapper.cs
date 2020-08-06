@@ -19,6 +19,7 @@ namespace AGAT.LocoDispatcher.Business.Config
                 cfg.AllowNullCollections = true;
 
                 cfg.CreateMap<AGAT.LocoDispatcher.AsusData.Models.Route, Models.RouteModels.Route>().ReverseMap();
+                cfg.CreateMap<AGAT.LocoDispatcher.Data.Models.EventModels.LocoShiftEvent, Models.LocoModels.Locomotive>().ReverseMap();
 
                 cfg.CreateMap<Data.Models.Rails.Coord, Coords>()
                 .ForMember(e => e.X, e => e.MapFrom(e => e.X))

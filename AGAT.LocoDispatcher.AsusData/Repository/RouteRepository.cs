@@ -7,13 +7,13 @@ namespace AGAT.LocoDispatcher.AsusData.Repository
 {
     public class RouteRepository
     {
-        public IList<Route> GetById(int id)
+        public IList<Route> GetByCode(int parkId, string code)
         {
-            if (id > 0)
+            if (!string.IsNullOrEmpty(code?.Trim()))
             {
                 using (AsusDataContext _db = new AsusDataContext())
                 {
-                    return _db.Routes.Where(e => e.ParkId == id).ToList();
+                    return _db.Routes.Where(e => e.ParkCode ==code && e.ParkId == parkId).ToList();
                 }
             }
             else

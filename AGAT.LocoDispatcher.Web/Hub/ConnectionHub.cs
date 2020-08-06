@@ -10,46 +10,16 @@ namespace AGAT.LocoDispatcher.Web
 {
     public class ConnectionHub : Hub
     {
-        private PointManager _pointManager;
+        private LocoManager _locoManager;
         public ConnectionHub()
         {
-            _pointManager = new PointManager();
+            _locoManager = new LocoManager();
         }
-        public async Task GetLocomotives(int parkId)
+        public async Task GetLocomotives(string station)
        {
             try
             {
-                Random rnd = new Random();
-                 List<Locomotive> locomotives = new List<Locomotive>
-                {
-                    new Locomotive
-                    {
-                        Id = 1,
-                        Code = "346",
-                        Name = $"ВЛ-10/ {parkId}",
-                        Status = true,
-                        Speed = 15
-                    },
-                        new Locomotive
-                    {
-                        Id = 1,
-                        Code = "125",
-                        Name = $"ВЛ-10 / {parkId}",
-                        Status = true,
-                        Speed = 15
-                    }
-                };
-                foreach (var loco in locomotives)
-                {
-
-                    loco.PointId = rnd.Next(1,10 ).ToString();
-                    Point point = await _pointManager.GetPointByCode(loco.PointId.ToString());
-                    if (point != null)
-                    {
-                        loco.Coords = point.Coord;
-                        loco.Angle = point.Angle;  
-                    }                             
-                }
+                var locomotives = await _locoManager.GetActiveByStationAsync(station);
                 await Clients.Caller.SendAsync("Locomotives", locomotives);
             }
             catch (Exception ex)

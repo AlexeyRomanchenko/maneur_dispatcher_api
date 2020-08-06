@@ -1,17 +1,15 @@
-﻿using AGAT.LocoDispatcher.Business.Models.RailsModels;
-using AGAT.LocoDispatcher.Data.Models.Rails;
+﻿using System;
 
 namespace AGAT.LocoDispatcher.Business.Models.LocoModels
 {
     public class Locomotive
     {
         public int Id { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public bool Status { get; set; }
-        public int Speed { get; set; }
-        public string PointId { get; set; }
-        public Coords Coords { get; set; }
-        public int Angle { get; set; }
+        public string TrainNumber { get; set; }
+        public string ESR { get; set; }
+        public bool IsValid { get; set; }
+        public DateTime StartShift { get; set; }
+        public DateTime? EndShift { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

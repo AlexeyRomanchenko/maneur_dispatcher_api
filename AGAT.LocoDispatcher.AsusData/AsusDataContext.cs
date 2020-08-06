@@ -9,6 +9,7 @@ namespace AGAT.LocoDispatcher.AsusData
         public DbSet<CarriageInfo> CarriageInfos { get; set; }
         public DbSet<StationPark> Parks { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<StationPark> StationParks { get; set; }
         public AsusDataContext()
         {
 

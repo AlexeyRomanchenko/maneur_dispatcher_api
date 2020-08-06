@@ -11,6 +11,7 @@ namespace AGAT.LocoDispatcher.Business.Models.RouteModels
         public int CarWeight { get; set; }
          public int CarLength { get; set; }
         public string RouteNumber { get; set; }
+        public string ParkCode { get; set; }
         public int ParkId { get; set; }
     }
 }

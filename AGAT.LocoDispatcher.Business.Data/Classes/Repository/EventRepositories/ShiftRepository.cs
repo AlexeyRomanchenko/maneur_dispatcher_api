@@ -15,11 +15,11 @@ namespace AGAT.LocoDispatcher.Data.Classes.Repository.EventRepositories
         {
             context = new DatabaseContext();
         }
-        public async Task<IEnumerable<LocoShiftEvent>> GetAsync()
+        public async Task<IEnumerable<LocoShiftEvent>> GetActiveByStationAsync(string station)
         {
             try
             {
-                return await context.LocoShiftEvents.ToListAsync();
+                return await context.LocoShiftEvents.Where(e=>e.EndShift == null && e.ESR == station).ToListAsync();
             }
             catch (Exception ex)
             {
