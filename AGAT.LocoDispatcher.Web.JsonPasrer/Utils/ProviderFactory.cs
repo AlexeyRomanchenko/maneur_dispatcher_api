@@ -31,7 +31,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
                 case EventConstants.StartShiftLocomotives:
                     return new ShiftLocoProvider(logger);
                 default:
-                    logger.LogWarning($"{DateTime.Now}  CANT GET PROVIDER OF PROVIDER FACTORY. {_event.Type}");
+                    logger?.LogWarning($"{DateTime.Now}  CANT GET PROVIDER OF PROVIDER FACTORY. {_event.Type}");
                     return null;
             }
         }

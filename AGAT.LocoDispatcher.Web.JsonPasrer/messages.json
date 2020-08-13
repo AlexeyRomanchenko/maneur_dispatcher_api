@@ -3,31 +3,11 @@
     "events": [
       {
         "type": "start_move",
-        "timestamp": 0,
+        "timestamp": 1933223232,
         "tracker_id": "string",
         "train_id": "string",
-        "direction": "number",
-        "direction_parity": "number",
-        "checkpoint_number": "string",
-        "track_number": "string",
-        "message": "string"
-      },
-      {
-        "type": "stop_move",
-        "timestamp": 0,
-        "tracker_id": "string",
-        "train_id": "string",
-        "distance": "number",
-        "checkpoint_number": "string",
-        "track_number": "string",
-        "message": "string"
-      },
-      {
-        "type": "passing_checkpoint",
-        "timestamp": 0,
-        "tracker_id": "string",
-        "train_id": "string",
-        "speed": "number",
+        "direction": "23",
+        "direction_parity": "3",
         "checkpoint_number": "string",
         "track_number": "string",
         "message": "string"

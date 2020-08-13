@@ -37,7 +37,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer
                 5,
                 _configuration.GetValue<string>("PathToFolder")
                 ));
-            services.AddSingleton<QuartzHostedService>();
+            services.AddHostedService<QuartzHostedService>();
             services.AddRouting();
         }
 
@@ -47,7 +47,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer
             ConnectionFacade.SetConnectionString(_configuration.GetConnectionString("Database"));
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Quartz!");
+                await context.Response.WriteAsync("Hello World");
             });
         }   
     }

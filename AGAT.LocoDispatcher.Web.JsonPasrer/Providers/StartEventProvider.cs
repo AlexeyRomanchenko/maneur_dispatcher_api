@@ -26,7 +26,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Providers
         {
             try
             {
-                logger.LogInformation($"{DateTime.Now} Invoked {_event.Type} event PROVIDER {_event.Timestamp}");
+                logger?.LogInformation($"{DateTime.Now} Invoked {_event.Type} event PROVIDER {_event.Timestamp}");
                 StartMoveEvent startMove = (StartMoveEvent)_event;
                 int shiftId = await _helper.GetLocoShiftIdByLocoNumber(startMove.TrainId);
                 StartModel moveEvent = new StartModel
@@ -45,12 +45,12 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Providers
             }
             catch (FormatException ex)
             {
-                logger.LogError($" {DateTime.Now} {_event.Type} FORMAT ERROR {ex.Message}");
+                logger?.LogError($" {DateTime.Now} {_event.Type} FORMAT ERROR {ex.Message}");
                 throw ex;
             }
             catch (Exception ex)
             {
-                logger.LogError($" {DateTime.Now} {_event.Type} ELSE ERROR {ex.Message}");
+                logger?.LogError($" {DateTime.Now} {_event.Type} ELSE ERROR {ex.Message}");
                 throw ex;
             }
            

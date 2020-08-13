@@ -14,7 +14,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
         {
             _drive = new DriveOperator(_logger);
             logger = _logger;
-            logger.LogInformation($"{DateTime.Now} PARSE JOB LAUNCHED");
+            logger?.LogInformation($"{DateTime.Now} PARSE JOB LAUNCHED");
         }
         public async Task Execute(IJobExecutionContext context)
         {
@@ -30,7 +30,7 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Utils
             }
             catch (Exception ex)
             {
-                logger.LogError($"{DateTime.Now} PARSE JOB FILE Exception: { ex.Message}");
+                logger?.LogError($"{DateTime.Now} PARSE JOB FILE Exception: { ex.Message}");
                 throw ex;
             }
 

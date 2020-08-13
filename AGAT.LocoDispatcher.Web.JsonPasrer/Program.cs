@@ -18,12 +18,13 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer
 
         public static IWebHostBuilder CreateHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args).UseStartup<Startup>()
-            .ConfigureLogging((e) =>
-            {
-            e.ClearProviders();
-            e.SetMinimumLevel(LogLevel.Information);
-            e.AddProvider(new FileLoggerProvider($"{loggerPath}\\log.txt"));
-            e.AddConsole();
-        });
+        //    .ConfigureLogging((e) =>
+        //    {
+        //    e.ClearProviders();
+        //    e.SetMinimumLevel(LogLevel.Information);
+        //    e.AddProvider(new FileLoggerProvider($"{loggerPath}\\log.txt"));
+        //    e.AddConsole();
+        //})
+            ;
     }
 }

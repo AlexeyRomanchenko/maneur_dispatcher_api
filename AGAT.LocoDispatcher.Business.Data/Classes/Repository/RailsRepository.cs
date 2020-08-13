@@ -1,6 +1,5 @@
 ﻿using AGAT.LocoDispatcher.Data.Interfaces;
 using AGAT.LocoDispatcher.Data.Models.Rails;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,7 +21,7 @@ namespace AGAT.LocoDispatcher.Data.Classes.Repository
                         db.SaveChanges();
                     }
                 }
-                catch (SqlException exception)
+                catch (Exception exception)
                 {
                     throw exception;
                 }               
@@ -44,7 +43,7 @@ namespace AGAT.LocoDispatcher.Data.Classes.Repository
                         return routes;
                     }
                 }
-                catch (SqlException exception)
+                catch (Exception exception)
                 {
                     throw exception;
                 }

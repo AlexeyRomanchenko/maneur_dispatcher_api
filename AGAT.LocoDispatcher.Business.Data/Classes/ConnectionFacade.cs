@@ -11,7 +11,7 @@ namespace AGAT.LocoDispatcher.Data.Classes
             if (!String.IsNullOrWhiteSpace(connection))
             {
                 _connection = connection.Trim();
-                Init.InitData();
+               // Init.InitData();
             }
             else
             {

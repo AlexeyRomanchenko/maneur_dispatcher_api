@@ -24,7 +24,7 @@ namespace AGAT.LocoDispatcher.Data
     
         public DatabaseContext()
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
        : base(options)
