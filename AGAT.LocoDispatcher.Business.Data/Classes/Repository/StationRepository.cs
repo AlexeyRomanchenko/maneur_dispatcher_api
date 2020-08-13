@@ -14,9 +14,12 @@ namespace AGAT.LocoDispatcher.Data.Classes.Repository
         {
             try
             {
-                using DatabaseContext _db = new DatabaseContext();
+                using (DatabaseContext _db = new DatabaseContext())
+                {
                 _db.Stations.Add(station);
                 _db.SaveChanges();
+                }
+
             }
             catch (DbException ex)
             {
@@ -36,8 +39,10 @@ namespace AGAT.LocoDispatcher.Data.Classes.Repository
             {
                 try
                 {
-                    using DatabaseContext _db = new DatabaseContext();
-                    return _db.Stations.Where(e => e.Id == id).FirstOrDefault();
+                    using (DatabaseContext _db = new DatabaseContext()) 
+                    {
+                        return _db.Stations.Where(e => e.Id == id).FirstOrDefault();
+                    }
                 }
                 catch (DbException ex)
                 {

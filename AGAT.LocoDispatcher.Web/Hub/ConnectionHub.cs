@@ -19,7 +19,7 @@ namespace AGAT.LocoDispatcher.Web
        {
             try
             {
-                var locomotives = await _locoManager.GetActiveByStationAsync(station);
+                var locomotives = await _locoManager.GetActiveByStationAsync(station,0);
                 await Clients.Caller.SendAsync("Locomotives", locomotives);
             }
             catch (Exception ex)

@@ -46,11 +46,11 @@ namespace AGAT.LocoDispatcher.Business.Classes.Managers
 
         }
 
-        public async Task<Point> GetPointByCode(string code)
+        public async Task<Point> GetPointByCode(string checkpoint, int parkId)
         {
             try
             {
-                Data.Models.Rails.Point _point  = await _repository.GetByCode(code);
+                Data.Models.Rails.Point _point  = await _repository.GetByCode(checkpoint, parkId);
                 Point point = Mapper.GetMapperInstance().Map<Point>(_point);
                 return point;
             }

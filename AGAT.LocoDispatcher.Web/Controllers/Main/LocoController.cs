@@ -24,7 +24,9 @@ namespace AGAT.LocoDispatcher.Web.Controllers.Main
         {
             try
             {
-                var locomotives = await _locoManager.GetActiveByStationAsync(station);
+                string parkId = HttpContext.Request.Query["parkId"];
+                int _parkId = Convert.ToInt32(parkId);
+                var locomotives = await _locoManager.GetActiveByStationAsync(station, _parkId);
                 return Ok(locomotives);
             }
             catch (Exception ex)

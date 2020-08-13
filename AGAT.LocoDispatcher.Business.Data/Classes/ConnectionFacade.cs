@@ -1,7 +1,5 @@
 ﻿using AGAT.LocoDispatcher.Data.Data;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AGAT.LocoDispatcher.Data.Classes
 {

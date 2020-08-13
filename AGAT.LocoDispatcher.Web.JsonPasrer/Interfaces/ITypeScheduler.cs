@@ -7,6 +7,6 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer.Interfaces
 {
     interface ITypeScheduler
     {
-        static void Start() { }
+        //static void Start() { }
     }
 }

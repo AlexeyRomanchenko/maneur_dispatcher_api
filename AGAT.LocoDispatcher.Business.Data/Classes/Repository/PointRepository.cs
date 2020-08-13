@@ -49,15 +49,15 @@ namespace AGAT.LocoDispatcher.Data.Classes.Repository
             }
         }
 
-        public async Task<Point> GetByCode(string code) 
+        public async Task<Point> GetByCode(string checkpoint, int parkId) 
         {
             try
             {
-                if (!String.IsNullOrEmpty(code.Trim()))
+                if (!String.IsNullOrEmpty(checkpoint?.Trim()))
                 {
                     using (DatabaseContext context = new DatabaseContext())
                     {
-                        return await context.Points.Where(e => e.Code == code).SingleOrDefaultAsync();
+                        return await context.Points.Where(e => e.Code == checkpoint && e.ParkId == parkId).SingleOrDefaultAsync();
                     }
                 }
                 else

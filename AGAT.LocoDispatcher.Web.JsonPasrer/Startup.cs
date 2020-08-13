@@ -1,14 +1,13 @@
 using System;
+using AGAT.LocoDispatcher.Data.Classes;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Extensions;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Interfaces;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Providers;
 using AGAT.LocoDispatcher.Web.JsonPasrer.Utils;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Quartz;
 using Quartz.Impl;
@@ -38,25 +37,18 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer
                 5,
                 _configuration.GetValue<string>("PathToFolder")
                 ));
-            services.AddHostedService<QuartzHostedService>();
+            services.AddSingleton<QuartzHostedService>();
+            services.AddRouting();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            ConnectionFacade.SetConnectionString(_configuration.GetConnectionString("Database"));
+            app.Run(async (context) =>
             {
-                app.UseDeveloperExceptionPage();
-            }
-            app.UseRouting();
-           
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Quartz app launched");
-                });
+                await context.Response.WriteAsync("Quartz!");
             });
-        }
+        }   
     }
 }

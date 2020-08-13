@@ -21,7 +21,7 @@ namespace AGAT.LocoDispatcher.Business.Classes.Managers
             pointManager = new PointManager();
         }
 
-        public async Task<IEnumerable<LocomotiveViewModel>> GetActiveByStationAsync(string station)
+        public async Task<IEnumerable<LocomotiveViewModel>> GetActiveByStationAsync(string station, int parkId)
         {
             try
             {
@@ -29,28 +29,25 @@ namespace AGAT.LocoDispatcher.Business.Classes.Managers
                 IEnumerable<LocoShiftEvent> locoShifts = await repository.GetActiveByStationAsync(station);
                 foreach (var loco in locoShifts)
                 {
-                    MoveEventBase _event = await GetLastPointAsync(loco.Id);
-                    if (string.IsNullOrEmpty(_event?.CheckPointNumber.Trim()))
+                    MoveEventBase _event = await GetLastEventAsync(loco.Id);
+                    if (!string.IsNullOrEmpty(_event?.CheckPointNumber.Trim()))
                     {
-                        break;
-                    }
-                    LocomotiveViewModel locomotive = new LocomotiveViewModel
-                    {
-                        Id = loco.Id,
-                        ESR = loco.ESR,
-                        PointId = _event.CheckPointNumber
-                    };
-                    if (_event != null)
-                    {
-                        //_event.CheckPointNumber
-                        Point point = await pointManager.GetPointByCode(_event.CheckPointNumber);
-                        if (point != null)
+                        LocomotiveViewModel locomotive = new LocomotiveViewModel
                         {
-                            locomotive.Coords = point.Coord;
-                            locomotives.Add(locomotive);
-                        }
-
+                            Id = loco.Id,
+                            ESR = loco.ESR,
+                            PointId = _event.CheckPointNumber
+                        };
+                            //_event.CheckPointNumber
+                            Point point = await pointManager.GetPointByCode(_event.CheckPointNumber, parkId);
+                            if (point != null)
+                            {
+                                locomotive.Coords = point.Coord;
+                                locomotive.Angle = point.Angle;
+                                locomotives.Add(locomotive);
+                            }
                     }
+                   
                 }
 
                 return locomotives;
@@ -62,7 +59,7 @@ namespace AGAT.LocoDispatcher.Business.Classes.Managers
            
         }
 
-        private async Task<MoveEventBase> GetLastPointAsync(int locoShiftId)
+        private async Task<MoveEventBase> GetLastEventAsync(int locoShiftId)
         {
            return await baseEventRepository.GetLastEventByShiftIdAsync(locoShiftId);
         }

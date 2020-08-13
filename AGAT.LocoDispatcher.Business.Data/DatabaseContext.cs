@@ -1,5 +1,4 @@
 ﻿using AGAT.LocoDispatcher.Data.Classes;
-using AGAT.LocoDispatcher.Data.Data;
 using AGAT.LocoDispatcher.Data.Models.EventModels;
 using AGAT.LocoDispatcher.Data.Models.Rails;
 using AGAT.LocoDispatcher.Data.Models.Stations;
@@ -35,7 +34,7 @@ namespace AGAT.LocoDispatcher.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string connectionString = "Data Source=192.168.111.211;Initial Catalog=LocomotiveDispatcherDB;User ID=web;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";//ConnectionFacade.GetConnectionString();
+                string connectionString = ConnectionFacade.GetConnectionString();
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }

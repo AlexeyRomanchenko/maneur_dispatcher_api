@@ -22,8 +22,8 @@ namespace AGAT.LocoDispatcher.Business.Config
                 cfg.CreateMap<AGAT.LocoDispatcher.Data.Models.EventModels.LocoShiftEvent, Models.LocoModels.Locomotive>().ReverseMap();
 
                 cfg.CreateMap<Data.Models.Rails.Coord, Coords>()
-                .ForMember(e => e.X, e => e.MapFrom(e => e.X))
-                .ForMember(e => e.Y, e => e.MapFrom(e => e.Y)).ReverseMap();
+                .ForMember(e => e.X, e => e.MapFrom(_e => _e.X))
+                .ForMember(e => e.Y, e => e.MapFrom(_e => _e.Y)).ReverseMap();
 
                 // Mapping classes from DataLayer to Business
 
@@ -37,48 +37,48 @@ namespace AGAT.LocoDispatcher.Business.Config
                 .ForMember(e=>e.Label, dto=> dto.MapFrom(e=>e.RoutePlate));
 
                 cfg.CreateMap<Data.Models.Rails.Carriage, Carriage>()
-                .ForMember(e => e.Id, e=> e.MapFrom(e=>e.Id))
-                .ForMember(e => e.Angle , e => e.MapFrom(e=>e.Angle));
+                .ForMember(e => e.Id, e=> e.MapFrom(_e=>_e.Id))
+                .ForMember(e => e.Angle , e => e.MapFrom(_e=>_e.Angle));
 
                 cfg.CreateMap<Data.Models.Rails.RoutePlate, RoutePlate>()
-                .ForMember(e => e.Id, e => e.MapFrom(e => e.Id))
-                .ForMember(e => e.Angle, e => e.MapFrom(e => e.Angle))
-                .ForMember(e => e.X, e => e.MapFrom(e => e.X))
-                .ForMember(e => e.Y, e => e.MapFrom(e => e.Y))
-                .ForMember(e => e.Name, e => e.MapFrom(e => e.Name));
+                .ForMember(e => e.Id, e => e.MapFrom(_e => _e.Id))
+                .ForMember(e => e.Angle, e => e.MapFrom(_e => _e.Angle))
+                .ForMember(e => e.X, e => e.MapFrom(_e => _e.X))
+                .ForMember(e => e.Y, e => e.MapFrom(_e => _e.Y))
+                .ForMember(e => e.Name, e => e.MapFrom(_e => _e.Name));
 
                 cfg.CreateMap<Data.Models.Stations.Park, Park>()
-                .ForMember(e => e.Id, e => e.MapFrom(e => e.Id))
-                .ForMember(e => e.Name, e => e.MapFrom(e => e.Name))
-                .ForMember(e => e.ParkId, e => e.MapFrom(e => e.ParkId))
-                .ForMember(e => e.Rails, e => e.MapFrom(e => e.Rails))
-                .ForMember(e => e.Code, e => e.MapFrom(e => e.Code));
+                .ForMember(e => e.Id, e => e.MapFrom(_e => _e.Id))
+                .ForMember(e => e.Name, e => e.MapFrom(_e => _e.Name))
+                .ForMember(e => e.ParkId, e => e.MapFrom(_e => _e.ParkId))
+                .ForMember(e => e.Rails, e => e.MapFrom(_e => _e.Rails))
+                .ForMember(e => e.Code, e => e.MapFrom(_e => _e.Code));
 
                 cfg.CreateMap<Data.Models.Rails.Point, Business.Models.RailsModels.Point>()
-                .ForMember(e => e.Id, e => e.MapFrom(e => e.Id))
-                .ForMember(e => e.Code, e => e.MapFrom(e => e.Code))
-                .ForMember(e => e.Angle, e => e.MapFrom(e => e.Angle))
-                .ForMember(e => e.Coord, e => e.MapFrom( e=> GetCoord(e)));
+                .ForMember(e => e.Id, e => e.MapFrom(_e => _e.Id))
+                .ForMember(e => e.Code, e => e.MapFrom(_e => _e.Code))
+                .ForMember(e => e.Angle, e => e.MapFrom(_e => _e.Angle))
+                .ForMember(e => e.Coord, e => e.MapFrom(_e => GetCoord(_e)));
 
                 cfg.CreateMap<AsusData.Models.CarriageInfo, Business.Models.RouteModels.CarriageInfo>()
-                .ForMember(e => e.Id, e => e.MapFrom(e => e.Id))
-                .ForMember(e => e.RouteId, e => e.MapFrom(e => e.RouteId))
-                .ForMember(e => e.OwnerCode, e => e.MapFrom(e => e.OwnerCode))
-                .ForMember(e => e.LoadWeight, e => e.MapFrom(e => e.LoadWeight))
-                .ForMember(e => e.Order, e => e.MapFrom(e => e.Order))
-                .ForMember(e => e.DestinationCode, e => e.MapFrom(e => e.DestinationCode))
-                .ForMember(e => e.Description, e => e.MapFrom(e => e.Description));
+                .ForMember(e => e.Id, e => e.MapFrom(_e => _e.Id))
+                .ForMember(e => e.RouteId, e => e.MapFrom(_e => _e.RouteId))
+                .ForMember(e => e.OwnerCode, e => e.MapFrom(_e => _e.OwnerCode))
+                .ForMember(e => e.LoadWeight, e => e.MapFrom(_e => _e.LoadWeight))
+                .ForMember(e => e.Order, e => e.MapFrom(_e => _e.Order))
+                .ForMember(e => e.DestinationCode, e => e.MapFrom(_e => _e.DestinationCode))
+                .ForMember(e => e.Description, e => e.MapFrom(_e => _e.Description));
 
                 cfg.CreateMap<AsusData.Models.Assignment, Business.Models.AssignmentModels.Assignment>().ReverseMap();
 
 
                 //Mapping data from Business layer to DataLayer 
                 cfg.CreateMap<Rail, Data.Models.Rails.Rail>()
-                .ForMember(dto => dto.Id, e => e.Ignore())
-                .ForMember(dto => dto.RailCode, e => e.MapFrom(e => e.railCode))
-                .ForMember(dto => dto.Coords, e => e.MapFrom(e => e.Coords))
-                .ForMember(dto=> dto.Carriage, e => e.MapFrom(e=>e.Carriage))
-                .ForMember(dto => dto.RoutePlate, e=>e.MapFrom(e=>e.Label))
+                .ForMember(dto => dto.Id, _e => _e.Ignore())
+                .ForMember(dto => dto.RailCode, e => e.MapFrom(_e => _e.railCode))
+                .ForMember(dto => dto.Coords, e => e.MapFrom(_e => _e.Coords))
+                .ForMember(dto=> dto.Carriage, e => e.MapFrom(_e => _e.Carriage))
+                .ForMember(dto => dto.RoutePlate, e=>e.MapFrom(_e => _e.Label))
                 .AfterMap((orig, dest)=> 
                 {
                     Data.Models.Rails.Coord startCoord = new Data.Models.Rails.Coord
@@ -92,28 +92,28 @@ namespace AGAT.LocoDispatcher.Business.Config
 
                 cfg.CreateMap<Carriage, Data.Models.Rails.Carriage>()
                 .ForMember(e => e.Id, e => e.Ignore())
-                .ForMember(e => e.Angle, e => e.MapFrom(e => e.Angle));
+                .ForMember(e => e.Angle, e => e.MapFrom(_e => _e.Angle));
 
                 cfg.CreateMap<RoutePlate, Data.Models.Rails.RoutePlate>()
                 .ForMember(e => e.Id, e => e.Ignore())
-                .ForMember(e => e.Angle, e => e.MapFrom(e => e.Angle))
-                .ForMember(e => e.X, e => e.MapFrom(e => e.X))
-                .ForMember(e => e.Y, e => e.MapFrom(e => e.Y))
-                .ForMember(e => e.Name, e => e.MapFrom(e => e.Name));
+                .ForMember(e => e.Angle, e => e.MapFrom(_e => _e.Angle))
+                .ForMember(e => e.X, e => e.MapFrom(_e => _e.X))
+                .ForMember(e => e.Y, e => e.MapFrom(_e => _e.Y))
+                .ForMember(e => e.Name, e => e.MapFrom(_e => _e.Name));
 
                 cfg.CreateMap<Park, Data.Models.Stations.Park>()
                 .ForMember(e => e.Id, e => e.Ignore())
-                .ForMember(e => e.Name, e => e.MapFrom(e => e.Name))
-                .ForMember(e => e.ParkId, e => e.MapFrom(e => e.ParkId))
-                .ForMember(e => e.Rails, e => e.MapFrom(e => e.Rails))
-                .ForMember(e => e.Code, e => e.MapFrom(e => e.Code));
+                .ForMember(e => e.Name, e => e.MapFrom(_e => _e.Name))
+                .ForMember(e => e.ParkId, e => e.MapFrom(_e => _e.ParkId))
+                .ForMember(e => e.Rails, e => e.MapFrom(_e => _e.Rails))
+                .ForMember(e => e.Code, e => e.MapFrom(_e => _e.Code));
 
                 cfg.CreateMap<Business.Models.RailsModels.Point, Point>()
                 .ForMember(e => e.Id, e => e.Ignore())
-                .ForMember(e => e.Code, e => e.MapFrom(e => e.Code))
-                .ForMember(e => e.Angle, e => e.MapFrom(e => e.Angle))
-                .ForMember(e => e.X, e => e.MapFrom(e => e.Coord.X))
-                .ForMember(e => e.Y, e => e.MapFrom(e => e.Coord.Y));
+                .ForMember(e => e.Code, e => e.MapFrom(_e => _e.Code))
+                .ForMember(e => e.Angle, e => e.MapFrom(_e => _e.Angle))
+                .ForMember(e => e.X, e => e.MapFrom(_e => _e.Coord.X))
+                .ForMember(e => e.Y, e => e.MapFrom(_e => _e.Coord.Y));
 
             });
             _mapper = config.CreateMapper();
