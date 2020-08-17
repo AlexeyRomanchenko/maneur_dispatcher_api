@@ -1,10 +1,7 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using AGAT.LocoDispatcher.Business.Classes;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using AGAT.LocoDispatcher.Business.Classes.Managers;
 using Microsoft.Extensions.Logging;
 
@@ -29,14 +26,15 @@ namespace AGAT.LocoDispatcher.Web
                     .AllowCredentials()
                     .AllowAnyHeader());
             });
-            services.AddSignalR(options =>
-            {
-                options.EnableDetailedErrors = true;
-            });
-            services.AddControllers(options => 
-            {
-                options.EnableEndpointRouting = true;
-            });
+            //services.AddSignalR(options =>
+            //{
+            //    options.EnableDetailedErrors = true;
+            //});
+            //services.AddControllers(options => 
+            //{
+            //    options.EnableEndpoints = true;
+            //});
+            services.AddMvc();
             services.AddSwaggerService();
             services.AddTransient<RailsManager>();
             services.AddTransient<RoutesManager>();
@@ -45,14 +43,8 @@ namespace AGAT.LocoDispatcher.Web
             services.AddTransient<AssignmentManager>();
         }
 
-       public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+       public void Configure(IApplicationBuilder app, ILogger<Startup> logger)
         {
-            logger.LogInformation($"Started Configure with is Production mode:{env.IsProduction()}");
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             ConnectionFacade.SetConnectionString(
                 _configuration.GetConnectionString("MySqliteDatabase"), 
                 _configuration.GetConnectionString("AsusDatabase"));
@@ -63,12 +55,18 @@ namespace AGAT.LocoDispatcher.Web
             app.UseCors("CorsPolicy");
             app.UseAuthorization();
             app.UseAuthentication();
-            app.UseEndpoints(route =>
+            app.UseEndpoints(endpoints =>
             {
-                route.MapHub<ConnectionHub>("/chat");
-                route.MapControllers();
-
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            //app.UseEndpoints(route =>
+            //{
+            //    route.MapHub<ConnectionHub>("/chat");
+            //    route.MapControllers();
+
+            //});
         }
 
     }

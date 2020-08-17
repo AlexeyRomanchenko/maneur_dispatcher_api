@@ -1,9 +1,10 @@
-using AGAT.LocoDispatcher.Web.JsonPasrer.Providers;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System;
+using System.Net;
 
 namespace AGAT.LocoDispatcher.Web.JsonPasrer
 {
@@ -18,13 +19,12 @@ namespace AGAT.LocoDispatcher.Web.JsonPasrer
 
         public static IWebHostBuilder CreateHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args).UseStartup<Startup>()
-        //    .ConfigureLogging((e) =>
-        //    {
-        //    e.ClearProviders();
-        //    e.SetMinimumLevel(LogLevel.Information);
-        //    e.AddProvider(new FileLoggerProvider($"{loggerPath}\\log.txt"));
-        //    e.AddConsole();
-        //})
+            .UseKestrel(options =>
+            {
+                options.Limits.MaxConcurrentConnections = 100;
+                options.Limits.MaxRequestBodySize = 10 * 1024;
+                options.Listen(IPAddress.Loopback, 5000);
+            })
             ;
     }
 }
